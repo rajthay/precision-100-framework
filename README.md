@@ -10,7 +10,7 @@ The following command executes a demo migration, no records are actually migrate
 The demo migration expects that there is an Oracle schema with the name `precision100` and password `Welcome123` in an Oracle instance with SID: `mig`.
 
 ```
-git clone http://localhost/precision-100-migration-framework/precision-100-framework.git
+git clone http://localhost:50080/precision-100-migration-framework/precision-100-framework.git
 cd precision-100-framework
 ./migration.sh demo_migration mock001
 ```
@@ -31,6 +31,14 @@ GRANT UNLIMITED TABLESPACE TO precision100;
 Once the schema and passwords are created, change `.env.sh` to reflect the customized attributes.
 
 ```
+git clone http://localhost:50080/precision-100-migration-framework/precision-100-framework.git
+cd precision-100-framework
+
+vi .env.sh
+```
+
+Change the Oracle database connection parameters as per your requirement
+```
 export USERNAME=precision100
 export PASSWORD=Welcome123
 export SID=mig
@@ -38,10 +46,9 @@ export SID=mig
 
 Now run the following, you should be able to see 2 records in the output table.
 
-'''
-cd precision-git
-migration.sh demo_migration mock001
-'''
+```
+./migration.sh demo_migration mock001
+```
 
 
 ## Prerequisites
