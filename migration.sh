@@ -1,5 +1,4 @@
 #!/bin/bash
-source $PRECISION100_FOLDER/.env.sh
 
 if [ "$#" -lt 2 ]; then
     echo "Usage: $0 <migration name> <run name> [pipeline name] [container name]"
@@ -9,6 +8,13 @@ if [ "$#" -gt 4 ]; then
     echo "Usage: $0 <migration name> <run name> [pipeline name] [container name]"
     exit -1
 fi
+
+if [ ! -f $PWD/.env.sh ]; then
+    echo ".env.sh file missing. Please run the script from the folder where .env.sh  parameter file exists"
+    exit -10
+fi
+
+source $PWD/.env.sh
 
 export MIGRATION_ARGUMENT=$1
 export ITERATION_ARGUMENT=$2
@@ -32,9 +38,9 @@ cd "$GIT_WORK_AREA"
 git branch "$ITERATION_ARGUMENT"
 git checkout "$ITERATION_ARGUMENT"
 
-export CONTAINER_FOLDER="${GIT_WORK_AREA}/containers"
-export PIPELINE_FOLDER="${GIT_WORK_AREA}/pipelines"
-export MIGRATION_FOLDER="${GIT_WORK_AREA}/migrations"
+export CONTAINER_FOLDER="${GIT_WORK_AREA}/$ROOT_FOLDER/containers"
+export PIPELINE_FOLDER="${GIT_WORK_AREA}/$ROOT_FOLDER/pipelines"
+export MIGRATION_FOLDER="${GIT_WORK_AREA}/$ROOT_FOLDER/migrations"
 
 ##
 ## Now to generate the SCRIPTS
