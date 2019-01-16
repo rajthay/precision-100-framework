@@ -3,7 +3,7 @@ MIGRATION=$1
 MIGRATION_SCRIPT="$MIGRATION.sh"
 if [ -f $MIGRATION_FOLDER/$MIGRATION.txt ]; then
    filelines=`cat $MIGRATION_FOLDER/$MIGRATION.txt`
-   echo "#!/bin/bash" >> $MIGRATION_FOLDER/$MIGRATION_SCRIPT
+   echo "#!/bin/bash" > $MIGRATION_FOLDER/$MIGRATION_SCRIPT
    echo 'clear' >> $MIGRATION_FOLDER/$MIGRATION_SCRIPT
    echo 'echo' >> $MIGRATION_FOLDER/$MIGRATION_SCRIPT
    echo 'echo "***************************************************"' >> $MIGRATION_FOLDER/$MIGRATION_SCRIPT
@@ -12,12 +12,15 @@ if [ -f $MIGRATION_FOLDER/$MIGRATION.txt ]; then
    echo 'echo "*                                                 *"' >> $MIGRATION_FOLDER/$MIGRATION_SCRIPT
    echo 'echo "***************************************************"' >> $MIGRATION_FOLDER/$MIGRATION_SCRIPT
    echo "echo" >> $MIGRATION_FOLDER/$MIGRATION_SCRIPT
-   echo "PS3='Please enter your choice: (3 to quit) '" >> $MIGRATION_FOLDER/$MIGRATION_SCRIPT
+   echo "PS3='Please enter your choice: (1 to quit) '" >> $MIGRATION_FOLDER/$MIGRATION_SCRIPT
    menus=`cat $MIGRATION_FOLDER/$MIGRATION.txt | tr '\n' ' '`
-   echo "options=($menus quit)" >> $MIGRATION_FOLDER/$MIGRATION_SCRIPT
+   echo "options=( quit $menus )" >> $MIGRATION_FOLDER/$MIGRATION_SCRIPT
    echo 'select opt in "${options[@]}"' >> $MIGRATION_FOLDER/$MIGRATION_SCRIPT
    echo "do" >>  $MIGRATION_FOLDER/$MIGRATION_SCRIPT
    echo 'case $opt in' >> $MIGRATION_FOLDER/$MIGRATION_SCRIPT
+   echo '"quit")' >> $MIGRATION_FOLDER/$MIGRATION_SCRIPT 
+   echo '   break ' >> $MIGRATION_FOLDER/$MIGRATION_SCRIPT 
+   echo '   ;; ' >> $MIGRATION_FOLDER/$MIGRATION_SCRIPT 
 
    for pipeline in $filelines ; do
 
@@ -30,9 +33,6 @@ if [ -f $MIGRATION_FOLDER/$MIGRATION.txt ]; then
 
    done;
 
-   echo '"quit")' >> $MIGRATION_FOLDER/$MIGRATION_SCRIPT 
-   echo '   break ' >> $MIGRATION_FOLDER/$MIGRATION_SCRIPT 
-   echo '   ;; ' >> $MIGRATION_FOLDER/$MIGRATION_SCRIPT 
    echo ' *) echo invalid option;;' >> $MIGRATION_FOLDER/$MIGRATION_SCRIPT 
    echo ' esac' >> $MIGRATION_FOLDER/$MIGRATION_SCRIPT 
    echo 'done' >> $MIGRATION_FOLDER/$MIGRATION_SCRIPT 

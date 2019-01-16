@@ -4,7 +4,7 @@ PIPELINE=$1
 PIPELINE_SCRIPT="$PIPELINE".sh
 if [ -f $PIPELINE_FOLDER/$PIPELINE.txt ]; then
    filelines=`cat $PIPELINE_FOLDER/$PIPELINE.txt`
-   echo "#!/bin/bash" >> $PIPELINE_FOLDER/$PIPELINE_SCRIPT
+   echo "#!/bin/bash" > $PIPELINE_FOLDER/$PIPELINE_SCRIPT
    echo 'clear' >> $PIPELINE_FOLDER/$PIPELINE_SCRIPT
    echo 'echo' >> $PIPELINE_FOLDER/$PIPELINE_SCRIPT
    echo 'echo "***************************************************"' >> $PIPELINE_FOLDER/$PIPELINE_SCRIPT
@@ -13,12 +13,15 @@ if [ -f $PIPELINE_FOLDER/$PIPELINE.txt ]; then
    echo 'echo "*                                                 *"' >> $PIPELINE_FOLDER/$PIPELINE_SCRIPT
    echo 'echo "***************************************************"' >> $PIPELINE_FOLDER/$PIPELINE_SCRIPT
    echo "echo" >> $PIPELINE_FOLDER/$PIPELINE_SCRIPT
-   echo "PS3='Please enter your choice: (3 to quit) '" >> $PIPELINE_FOLDER/$PIPELINE_SCRIPT
+   echo "PS3='Please enter your choice: (1 to quit) '" >> $PIPELINE_FOLDER/$PIPELINE_SCRIPT
    menus=`cat $PIPELINE_FOLDER/$PIPELINE.txt | tr '\n' ' '`
-   echo "options=($menus quit)" >> $PIPELINE_FOLDER/$PIPELINE_SCRIPT
+   echo "options=( quit $menus )" >> $PIPELINE_FOLDER/$PIPELINE_SCRIPT
    echo 'select opt in "${options[@]}"' >> $PIPELINE_FOLDER/$PIPELINE_SCRIPT
    echo "do" >>  $PIPELINE_FOLDER/$PIPELINE_SCRIPT
    echo 'case $opt in' >> $PIPELINE_FOLDER/$PIPELINE_SCRIPT
+   echo '"quit")' >> $PIPELINE_FOLDER/$PIPELINE_SCRIPT 
+   echo '   break ' >> $PIPELINE_FOLDER/$PIPELINE_SCRIPT 
+   echo '   ;; ' >> $PIPELINE_FOLDER/$PIPELINE_SCRIPT 
 
    for container in $filelines ; do
 
@@ -30,9 +33,6 @@ if [ -f $PIPELINE_FOLDER/$PIPELINE.txt ]; then
        echo '    ;;' >> $PIPELINE_FOLDER/$PIPELINE_SCRIPT
    done;
 
-   echo '"quit")' >> $PIPELINE_FOLDER/$PIPELINE_SCRIPT 
-   echo '   break ' >> $PIPELINE_FOLDER/$PIPELINE_SCRIPT 
-   echo '   ;; ' >> $PIPELINE_FOLDER/$PIPELINE_SCRIPT 
    echo ' *) echo invalid option;;' >> $PIPELINE_FOLDER/$PIPELINE_SCRIPT 
    echo ' esac' >> $PIPELINE_FOLDER/$PIPELINE_SCRIPT 
    echo 'done' >> $PIPELINE_FOLDER/$PIPELINE_SCRIPT 
