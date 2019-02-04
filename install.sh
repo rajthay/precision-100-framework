@@ -1,39 +1,48 @@
 #!/bin/bash
 
-source .oraenv.sh
 
-ORACLE_DBA_USER=system
-ORACLE_DBA_USER_PASSWORD=oracle
+DEFAULT_ORACLE_HOME=/usr/lib/oracle/18.3/client64/
 
-PRECISION100_USER=precision100
-PRECISION100_USER_PASSWORD=Welcome123
+DEFAULT_ORACLE_DBA_USER=system
+DEFAULT_ORACLE_DBA_USER_PASSWORD=oracle
+DEFAULT_SID=mig
 
-echo "The user should be able to create the 'precison100' user and give it the"
+DEFAULT_PRECISION100_USER=precision100
+DEFAULT_PRECISION100_USER_PASSWORD=Welcome123
+
+DEFAULT_PRECISION100_HOME=$HOME/precision100
+DEFAULT_GIT_URL="http://localhost:50080/precision-100-migration-framework/precision-100-migration-templates.git"
+DEFAULT_TEMPLATE_NAME=simple-demo
+
+echo "The user should be able to create the '$DEFAULT_PRECISION100_USER' user and give it the"
 echo "necessary privileges to create all the constructs" 
 
-read -p "Enter Oracle home [/usr/lib/oracle/18.3/client64/] " INPUT_ORACLE_HOME 
-ORACLE_HOME=${INPUT_ORACLE_HOME:-/usr/lib/oracle/18.3/client64/}
+read -p "Enter Oracle Home [$DEFAULT_ORACLE_HOME] " INPUT_ORACLE_HOME 
+ORACLE_HOME=${INPUT_ORACLE_HOME:-$DEFAULT_ORACLE_HOME}
 
-read -p "Enter Oracle user name [system]: " INPUT_DBA
-ORACLE_DBA_USER=${INPUT_DBA:-system}
+read -p "Enter Oracle user name [$DEFAULT_ORACLE_DBA_USER]: " INPUT_DBA
+ORACLE_DBA_USER=${INPUT_DBA:-$DEFAULT_ORACLE_DBA_USER}
 
-read -p "Enter Oracle user password [oracle]: " INPUT_DBA_PASSWORD
-ORACLE_DBA_USER_PASSWORD=${INPUT_DBA_PASSWORD:-oracle}
+read -p "Enter Oracle user password [$DEFAULT_ORACLE_DBA_USER_PASSWORD]: " INPUT_DBA_PASSWORD
+ORACLE_DBA_USER_PASSWORD=${INPUT_DBA_PASSWORD:-$DEFAULT_ORACLE_DBA_USER_PASSWORD}
 
-read -p "Enter Oracle SID [mig]: " INPUT_SID
-ORACLE_MIG_SID=${INPUT_SID:-mig}
+read -p "Enter Oracle SID [$DEFAULT_SID]: " INPUT_SID
+ORACLE_MIG_SID=${INPUT_SID:-$DEFAULT_SID}
 
-read -p "Enter Precision100 Oracle User Password [Welcome123]: " INPUT_PRECISION_PASSWORD
-PRECISION100_USER_PASSWORD=${INPUT_PRECISION_PASSWORD:-Welcome123}
+#read -p "Enter Precision100 Oracle User [$DEFAULT_PRECISION100_USER]: " INPUT_PRECISION100_USER
+PRECISION100_USER=${INPUT_PRECISION100_USER:-$DEFAULT_PRECISION100_USER}
 
-read -p "Enter Precision100 installation folder [$HOME/precision100]: " INPUT_PRECISION_FOLDER
-PRECISION100_FOLDER=${INPUT_PRECISION_FOLDER:-$HOME/precision100}
+read -p "Enter Precision100 Oracle User Password [$DEFAULT_PRECISION100_USER_PASSWORD]: " INPUT_PRECISION100_PASSWORD
+PRECISION100_USER_PASSWORD=${INPUT_PRECISION100_PASSWORD:-$DEFAULT_PRECISION100_USER_PASSWORD}
 
-read -p "Enter GIT URL for the migration templates [http://localhost:50080/precision-100-migration-framework/precision-100-migration-templates.git]" INPUT_GIT_URL
-GIT_URL=${INPUT_GIT_URL:-http://localhost:50080/precision-100-migration-framework/precision-100-migration-templates.git}
+read -p "Enter Precision100 installation folder [$DEFAULT_PRECISION100_HOME]: " INPUT_PRECISION100_FOLDER
+PRECISION100_FOLDER=${INPUT_PRECISION100_FOLDER:-$DEFAULT_PRECISION100_HOME}
+
+read -p "Enter GIT URL for the migration templates [$DEFAULT_GIT_URL] " INPUT_GIT_URL
+GIT_URL=${INPUT_GIT_URL:-$DEFAULT_GIT_URL}
 
 #read -p "Enter migration template name [simple-demo]" INPUT_TEMPLATE_NAME
-#ROOT_FOLDER=${INPUT_TEMPLATE_NAME:-simple-demo}
+ROOT_FOLDER=${INPUT_TEMPLATE_NAME:-$DEFAULT_TEMPLATE_NAME}
 
 sqlplus -s /nolog  <<EOF
 
@@ -51,9 +60,8 @@ EOF
 sqlplus -s /nolog << FILE_LIST
 
 connect $PRECISION100_USER/$PRECISION100_USER_PASSWORD@$ORACLE_MIG_SID
-@sql/PERFORMANCE_LOGS.sql
-@sql/PROGRESS_LOGS.sql
-
+@install/sql/PERFORMANCE_LOGS.sql
+@install/sql/PROGRESS_LOGS.sql
 
 exit;
 
@@ -62,7 +70,6 @@ FILE_LIST
 
 if [ ! -d "$PRECISION100_FOLDER/conf" ]; then
   mkdir -p "$PRECISION100_FOLDER/conf"
-  mkdir -p "$PRECISION100_FOLDER/git-local"
 fi
 
 if [ ! -d "$PRECISION100_FOLDER/git-local" ]; then
