@@ -2,42 +2,33 @@
 
 source .oraenv.sh
 
-PRECISION100_USER=precision100
-PRECISION100_USER_PASSWORD=Welcome123
-
 ORACLE_DBA_USER=system
 ORACLE_DBA_USER_PASSWORD=oracle
-ORACLE_MIG_SID=mig
 
-ORACLE_CONNECT_STRING=$ORACLE_DBA_USER/$ORACLE_DBA_USER_PASSWORD@$ORACLE_MIG_SID
+PRECISION100_USER=precision100
+PRECISION100_USER_PASSWORD=Welcome123
 
 echo "The user should be able to create the 'precison100' user and give it the"
 echo "necessary privileges to create all the constructs" 
 
-if [ -z "$1" ]
-  then
-    ORACLE_CONNECT_STRING=$ORACLE_DBA_USER/$ORACLE_DBA_USER_PASSWORD@$ORACLE_MIG_SID
-  else
-    ORACLE_CONNECT_STRING=$1
-fi
+read -p "Enter Oracle user name [system]: " INPUT_DBA
+ORACLE_DBA_USER=${INPUT_DBA:-system}
 
-if [ -z "$2" ]
-  then
-    PRECISION100_USER_PASSWORD=Welcome123
-  else
-    PRECISION100_USER_PASSWORD=$2
-fi
+read -p "Enter Oracle user password [oracle]: " INPUT_DBA_PASSWORD
+ORACLE_DBA_USER_PASSWORD=${INPUT_DBA_PASSWORD:-oracle}
 
-if [ -z "$3" ]
-  then
-    PRECISION100_USER=precision100
-  else
-    PRECISION100_USER=$3
-fi
+read -p "Enter Oracle SID [mig]: " INPUT_SID
+ORACLE_MIG_SID=${INPUT_SID:-mig}
+
+read -p "Enter Precision100 Oracle User Password [Welcome123]: " INPUT_PRECISION_PASSWORD
+PRECISION100_USER_PASSWORD=${INPUT_PRECISION_PASSWORD:-Welcome123}
+
+read -p "Enter Precision100 installation folder [~/precision100]: " INPUT_PRECISION_FOLDER
+PRECISION100_FOLDER=${INPUT_PRECISION_PASSWORD:-~/precision100}
 
 sqlplus -s /nolog  <<EOF
 
-connect $ORACLE_CONNECT_STRING;
+connect $ORACLE_DBA_USER/$ORACLE_DBA_USER_PASSWORD@$ORACLE_MIG_SID
 CREATE USER $PRECISION100_USER IDENTIFIED BY "$PRECISION100_USER_PASSWORD";
 GRANT CONNECT TO $PRECISION100_USER;
 GRANT CONNECT, RESOURCE, DBA TO $PRECISION100_USER;
@@ -58,3 +49,43 @@ connect $PRECISION100_USER/$PRECISION100_USER_PASSWORD@$ORACLE_MIG_SID
 exit;
 
 FILE_LIST
+
+if [ ! -d "$PRECISION100_FOLDER/conf" ]; then
+  mkdir -p "$PRECISION100_FOLDER/conf"
+fi
+
+cat > $PRECISION100_FOLDER/conf/.oraenv.sh << 'ORAENV'
+
+export ORACLE_HOME=/usr/lib/oracle/18.3/client64/
+export LD_LIBRARY_PATH="$ORACLE_HOME"/lib
+export PATH="$ORACLE_HOME/bin:$PATH"
+export TNS_ADMIN="$ORACLE_HOME/lib/network/admin"
+
+ORAENV
+
+cat >> $PRECISION100_FOLDER/conf/.oraenv.sh << ORASECRET
+
+export USERNAME=$PRECISION100_USER
+export PASSWORD=$PRECISION100_USER_PASSWORD
+export SID=$ORACLE_MIG_SID
+
+ORASECRET
+
+cat > $PRECISION100_FOLDER/conf/.env.sh << INSTALL_FOLDER
+export PRECISION100_FOLDER="$PRECISION100_FOLDER"
+INSTALL_FOLDER
+
+cat >> $PRECISION100_FOLDER/conf/.env.sh << 'ENV'
+
+export PRECISION100_WORK_FOLDER=$PRECISION100_FOLDER
+export INPUT_FILE=$PRECISION100_WORK_FOLDER/input
+export SQLLDR_LOG=$PRECISION100_WORK_FOLDER/sqlldr_log
+export SQLLDR_BAD=$PRECISION100_WORK_FOLDER/sqlldr_bad
+export SPOOL_PATH=$PRECISION100_WORK_FOLDER/spool
+export GIT_LOCAL_FOLDER=$PRECISION100_WORK_FOLDER/git-local
+
+export GIT_URL=http://localhost:50080/precision-100-migration-framework/precision-100-migration-templates.git
+export ROOT_FOLDER=simple-demo
+
+ENV
+
