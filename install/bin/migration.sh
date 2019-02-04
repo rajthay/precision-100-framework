@@ -9,12 +9,12 @@ if [ "$#" -gt 4 ]; then
     exit -1
 fi
 
-if [ ! -f $PWD/.env.sh ]; then
+if [ ! -f $PWD/conf/.env.sh ]; then
     echo ".env.sh file missing. Please run the script from the folder where .env.sh  parameter file exists"
     exit -10
 fi
 
-source $PWD/.env.sh
+source $PWD/conf/.env.sh
 
 export MIGRATION_ARGUMENT=$1
 export ITERATION_ARGUMENT=$2
