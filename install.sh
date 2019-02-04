@@ -97,8 +97,8 @@ export SID=$ORACLE_MIG_SID
 ORASECRET
 
 cat > $PRECISION100_FOLDER/conf/.env.sh << INSTALL_FOLDER
-source ./.oraenv.sh
-source ./.gitenv.sh
+source $PRECISION100_FOLDER/conf/.oraenv.sh
+source $PRECISION100_FOLDER/conf/.gitenv.sh
 
 export PRECISION100_FOLDER="$PRECISION100_FOLDER"
 INSTALL_FOLDER
