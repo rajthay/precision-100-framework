@@ -11,7 +11,7 @@ DEFAULT_PRECISION100_USER=precision100
 DEFAULT_PRECISION100_USER_PASSWORD=Welcome123
 
 DEFAULT_PRECISION100_HOME=$HOME/precision100
-DEFAULT_GIT_URL="http://localhost:50080/precision-100-migration-framework/precision-100-migration-templates.git"
+DEFAULT_GIT_URL="https://github.com/ennovatenow/precision-100-migration-templates.git"
 DEFAULT_PROJECT_NAME=simple-demo
 
 echo "The user should be able to create the '$DEFAULT_PRECISION100_USER' user and give it the"
