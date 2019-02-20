@@ -19,7 +19,7 @@ if [ -f $MIGRATION_FOLDER/$MIGRATION.txt ]; then
    echo "do" >>  $MIGRATION_FOLDER/$MIGRATION_SCRIPT
    echo 'case $opt in' >> $MIGRATION_FOLDER/$MIGRATION_SCRIPT
    echo '"quit")' >> $MIGRATION_FOLDER/$MIGRATION_SCRIPT 
-   echo '   break ' >> $MIGRATION_FOLDER/$MIGRATION_SCRIPT 
+   echo '   exit ' >> $MIGRATION_FOLDER/$MIGRATION_SCRIPT 
    echo '   ;; ' >> $MIGRATION_FOLDER/$MIGRATION_SCRIPT 
 
    for pipeline in $filelines ; do
