@@ -9,4 +9,4 @@ git pull origin $EXECUTION_NAME
 
 CONTAINER=$1
 
-$PRECISION100_FOLDER/exec_container.sh $CONTAINER
+$PRECISION100_FOLDER/bin/exec_container.sh $CONTAINER

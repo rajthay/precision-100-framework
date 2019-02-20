@@ -9,4 +9,4 @@ git pull origin $EXECUTION_NAME
 
 PIPELINE=$1
 
-$PRECISION100_FOLDER/exec_pipeline.sh $PIPELINE
+$PRECISION100_FOLDER/bin/exec_pipeline.sh $PIPELINE

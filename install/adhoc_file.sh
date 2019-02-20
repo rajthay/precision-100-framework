@@ -15,4 +15,4 @@ LINE=`grep $FILE_NAME $CONTAINER_FOLDER/$CONTAINER/file.txt`
 filename=$(echo $LINE | cut -d ',' -f 2)
 filetype=$(echo $LINE | cut -d ',' -f 3)
 
-$PRECISION100_FOLDER/exec_file.sh $CONTAINER $filename $filetype
+$PRECISION100_FOLDER/bin/exec_file.sh $CONTAINER $filename $filetype
