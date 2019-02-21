@@ -63,11 +63,16 @@ e.g In Ubuntu, Oracle Instant client version 18.3 is installed in `/usr/lib/orac
 Oracle clients use entries in $ORACLE_HOME/network/admin/tnsnames.ora to connect to the database. Create this file if it does not exist and add connection string relevant to your Oracle database.
 
 e.g.
-`MIG = (DESCRIPTION = (ADDRESS_LIST = (ADDRESS = (PROTOCOL = TCP)(HOST = localhost)(PORT = 49161))) (CONNECT_DATA = (SID = xe)))`
 
+```
+MIG = (DESCRIPTION = (ADDRESS_LIST = (ADDRESS = (PROTOCOL = TCP)(HOST = localhost)(PORT = 49161))) (CONNECT_DATA = (SID = xe)))
+```
 
-e.g.
+Now you should be able to connect to the database as follows
 
+```
+sqlplus precision100/Welcome@mig
+```
 
 
 
