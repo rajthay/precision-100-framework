@@ -49,7 +49,10 @@ The framework requires the following components to work
 
 ## Setup
 ### Oracle
-If you have an Oracle instance then you can
+Precision 100 Framework uses an Oracle database to stage and transform data. Oracle-XE or a docker instance can be used to demo the framework. The framework creates a Oracle user/schema named `precision100` (default, can be changed) during installation
+
+Oracle XE documentation can be found [here](https://docs.oracle.com/cd/E17781_01/index.htm)
+
 
 ### Oracle Client Tools
 Precision100 Framework requires `sqlplus` and `sqlldr` to be installed and available.
