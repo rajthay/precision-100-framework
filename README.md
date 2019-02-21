@@ -75,14 +75,17 @@ MIG = (DESCRIPTION = (ADDRESS_LIST = (ADDRESS = (PROTOCOL = TCP)(HOST = localhos
 ```
 
 Now you should be able to connect to the database as follows
-
+ 
 ```
-sqlplus precision100/Welcome@mig
+sqlplus precision100/Welcome123@mig
 ```
 
 
 
 ### Git Repository 
+Precision100 framework data templates are stored in `git` repositories. This repository can be hosted online like the [precision-100-migration-templates](https://github.com/ennovatenow/precision-100-migration-templates.git) on GitHub or hosted on premise within the network using Gitlab or any other `git` server.
+
+We can also use a docker image to try out the framework. A guide to installing GitLab using docker can be found [here](https://docs.gitlab.com/ee/install/docker.html)
 
 ### Git Client
 To install the `git` client,
