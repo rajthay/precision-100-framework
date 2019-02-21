@@ -79,6 +79,16 @@ sqlplus precision100/Welcome@mig
 ### Git Repository 
 
 ### Git Client
+To install the `git` client,
+```
+sudo apt-get update
+sudo apt-get install git
+git --version
+```
+
+[Here](https://www.atlassian.com/git/tutorials/install-git) is a good article to install `git` on other platforms
+
+
 
 ## Contributing
 Thank you very much for considering to contribute!
