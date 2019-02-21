@@ -11,7 +11,12 @@ cd ~/precision100
 ```
 
 The above steps, ofcourse, assumes that the [prerequisite](#prerequisites) components are already installed and configured with their default values
- 
+
+### A simple demo
+When executing the framework with default project as [above](#quick-usage), the simple-demo project is run. It executes a demo migration, no records are actually migrated but it serves the purpose of checking if all the [prerequisite](#prerequisites) components are installed and configured properly. 
+
+The ['longer example'](#a-longer-example) and the ['longer longer example'](#a-longer-longer-example) examples provide more details about the working of the framework. 
+
 The default values when installing the application is as follows,
 
 1. ORACLE_HOME = `/usr/lib/oracle/18.3/client64/`
@@ -28,10 +33,6 @@ The default values when installing the application is as follows,
 8. Migration Template Repository URL = `https://github.com/ennovatenow/precision-100-migration-templates.git`
 9. Precision Installation folder = `$HOME/precision100`
 
-### A simple demo
-When executing the framework with default project as [above](#quick-usage), the simple-demo project is run. It executes a demo migration, no records are actually migrated but it serves the purpose of checking if all the [prerequisite](#prerequisites) components are installed and configured properly. 
-
-The ['longer example'](#a-longer-example) and the ['longer longer example'](#a-longer-longer-example) examples provide more details about the working of the framework. 
 
 ### A longer example
 To-do
