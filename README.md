@@ -19,19 +19,15 @@ The ['longer example'](#a-longer-example) and the ['longer longer example'](#a-l
 
 The default values when installing the application is as follows,
 
-1. ORACLE_HOME = `/usr/lib/oracle/18.3/client64/`
-2. Oracle SID = `mig`
-3. Oracle DBA User = `system`
-
-   This user is used create the precision 100 schema/user. It is used only during installation and is never stored.
-4. Oracle DBA User Password = `oracle` 
-
-   The password for the user in 3 above. It is used only during installation and is never stored.
-5. Precision Framework Schema Owner = `precision100`
-6. Precision Framework Schema Owner Password = `Welcome123`
-7. Migration Project = `simple-demo`
-8. Migration Template Repository URL = `https://github.com/ennovatenow/precision-100-migration-templates.git`
-9. Precision Installation folder = `$HOME/precision100`
+1) ORACLE_HOME = `/usr/lib/oracle/18.3/client64/`
+2) Oracle SID = `mig`
+3) Oracle DBA User = `system`
+4) Oracle DBA User Password = `oracle` 
+5) Precision Framework Schema Owner = `precision100`
+6) Precision Framework Schema Owner Password = `Welcome123`
+7) Migration Project = `simple-demo`
+8) Migration Template Repository URL = `https://github.com/ennovatenow/precision-100-migration-templates.git`
+9) Precision Installation folder = `$HOME/precision100`
 
 
 ### A longer example
