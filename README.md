@@ -51,8 +51,10 @@ The framework requires the following components to work
 ### Oracle
 Precision 100 Framework uses an Oracle database to stage and transform data. Oracle-XE or a docker instance can be used to demo the framework. The framework creates a Oracle user/schema named `precision100` (default, can be changed) during installation
 
-Oracle XE documentation can be found [here](https://docs.oracle.com/cd/E17781_01/index.htm). For dockers, the following links can be useful 
-[https://github.com/fuzziebrain/docker-oracle-xe](https://github.com/fuzziebrain/docker-oracle-xe)
+Oracle XE documentation can be found [here](https://docs.oracle.com/cd/E17781_01/index.htm). For dockers, the following links can be useful,
+
+1. [https://github.com/fuzziebrain/docker-oracle-xe](https://github.com/fuzziebrain/docker-oracle-xe)
+2. [https://github.com/DeepDiver1975/docker-oracle-xe-11g](https://github.com/DeepDiver1975/docker-oracle-xe-11g)
 
 
 ### Oracle Client Tools
