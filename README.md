@@ -1,7 +1,15 @@
 # Precision 100 Migration Framework
 Data migration execution and governance framework.
 
-## Usage
+## Quick Usage
+```
+git clone http://localhost:50080/precision-100-migration-framework/precision-100-framework.git
+./install.sh
+cd ~/precision100
+./init_exec.sh
+./adhoc_dataflow.sh demo_migration
+```
+
 Using the Precision 100 framework is as easy as cloning the repository and executing the `migration.sh` shell script. It, ofcourse, assumes that the [prerequisite](#prerequisites) components are already installed.
 
 ### A simple demo
