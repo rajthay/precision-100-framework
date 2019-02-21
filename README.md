@@ -60,9 +60,9 @@ Once installed, note the location where the client is installed. This should be 
 e.g In Ubuntu, Oracle Instant client version 18.3 is installed in `/usr/lib/oracle/18.3/client64/` folder. In this document whenever we refer to ORACLE_HOME - we mean this location
 
 #### Configuring TNS entries
-Oracle clients use entries in $ORACLE_HOME/network/admin/tnsnames.ora to connect to the database. Create this file if it does not exist and add connection string relevant to your Oracle database.
+Oracle clients use entries in `$ORACLE_HOME/network/admin/tnsnames.ora` to connect to the database. Create this file if it does not exist and add connection string relevant to your Oracle database.
 
-e.g.
+e.g. To connect to an instance of Orcle XE running in a local machine and port 49161
 
 ```
 MIG = (DESCRIPTION = (ADDRESS_LIST = (ADDRESS = (PROTOCOL = TCP)(HOST = localhost)(PORT = 49161))) (CONNECT_DATA = (SID = xe)))
