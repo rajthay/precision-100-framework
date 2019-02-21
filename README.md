@@ -14,15 +14,19 @@ The above steps, ofcourse, assumes that the [prerequisite](#prerequisites) compo
  
 The default values when installing the application is as follows,
 
-1. ORACLE_HOME=/usr/lib/oracle/18.3/client64/
-2. Oracle SID = mig
-3. Oracle DBA User (user who creates the `precision100` schema/user) = system
-4. Oracle DBA User Password = oracle (default value when installing Oracle XE)
-5. Precision Framework Schema Owner = precision100
-6. Precision Framework Schema Owner Password = Welcome123
-7. Migration Project = simple-demo
-8. Migration Template Repository URL = https://github.com/ennovatenow/precision-100-migration-templates.git
-9. Precision Installation folder = $HOME/precision100
+1. ORACLE_HOME = `/usr/lib/oracle/18.3/client64/`
+2. Oracle SID = `mig`
+3. Oracle DBA User = `system`
+
+   This user is used create the precision 100 schema/user. It is used only during installation and is never stored.
+4. Oracle DBA User Password = `oracle` 
+
+   The password for the user in 3 above. It is used only during installation and is never stored.
+5. Precision Framework Schema Owner = `precision100`
+6. Precision Framework Schema Owner Password = `Welcome123`
+7. Migration Project = `simple-demo`
+8. Migration Template Repository URL = `https://github.com/ennovatenow/precision-100-migration-templates.git`
+9. Precision Installation folder = `$HOME/precision100`
 
 ### A simple demo
 When executing the framework with default project as [above](#quick-usage), the simple-demo project is run. It executes a demo migration, no records are actually migrated but it serves the purpose of checking if all the prerequisite components are installed and configured properly. The ['longer example'](#a-longer-example) and the 'longer longer example' examples provide more details for configuring the framework for proper usage.
