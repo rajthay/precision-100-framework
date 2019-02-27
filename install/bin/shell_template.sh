@@ -1,7 +1,7 @@
 echo "        START SHELL ADAPTOR $1"
 
-if test "$5" = "TRUE"; then
-   sleep $6;
+if test "$2" = "TRUE"; then
+   sleep $3;
    echo "        END SHELL ADAPTOR $1"
    exit;
 fi
@@ -13,7 +13,7 @@ EXEC PROGRESS_LOGS_PKG.LOG('$0','PRE-SHELL','$PROJECT_FOLDER / $EXECUTION_NAME /
 EXIT
 BEFORE_COMMAND
 
-$1.sh
+$1
 
 sqlplus -s /nolog << AFTER_COMMAND
 CONNECT $USERNAME/$PASSWORD@$SID
