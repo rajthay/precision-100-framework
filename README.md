@@ -1,68 +1,100 @@
 # Precision 100 Migration Framework
 Data migration execution and governance framework.
 
-## Usage
-Using the Precision 100 framework is as easy as cloning the repository and executing the `migration.sh` shell script. It, ofcourse, assumes that the [prerequisite](#prerequisites) components are already installed.
+## Quick Usage
+```
+git clone https://github.com/ennovatenow/precision-100-framework.git
+./install.sh
+cd ~/precision100
+./init_exec.sh
+./adhoc_dataflow.sh demo_migration
+```
+
+The above steps, ofcourse, assumes that the [prerequisite](#prerequisites) components are already installed and configured with their default values
 
 ### A simple demo
-The following command executes a demo migration, no records are actually migrated but it serves the purpose of checking if all the prerequisite components are intalled and configured properly. The ['longer example'](http://localhost/precision-100-migration-framework/precision-100-framework#a-longer-example) and the 'longer longer example' examples provide more details for configuring the framework for proper usage.
+When executing the framework with default project as [above](#quick-usage), the simple-demo project is run. It executes a demo migration, no records are actually migrated but it serves the purpose of checking if all the [prerequisite](#prerequisites) components are installed and configured properly. 
 
-The demo migration expects that there is an Oracle schema with the name `precision100` and password `Welcome123` in an Oracle instance with SID: `mig`.
+The ['longer example'](#a-longer-example) and the ['longer longer example'](#a-longer-longer-example) examples provide more details about the working of the framework. 
 
-```
-git clone http://localhost:50080/precision-100-migration-framework/precision-100-framework.git
-cd precision-100-framework
-./migration.sh demo_migration mock001
-```
+The default values when installing the application is as follows,
+
+1) ORACLE_HOME = `/usr/lib/oracle/18.3/client64/`
+2) Oracle SID = `mig`
+3) Oracle DBA User = `system`
+4) Oracle DBA User Password = `oracle` 
+5) Precision Framework Schema Owner = `precision100`
+6) Precision Framework Schema Owner Password = `Welcome123`
+7) Migration Project = `simple-demo`
+8) Migration Template Repository URL = `https://github.com/ennovatenow/precision-100-migration-templates.git`
+9) Precision Installation folder = `$HOME/precision100`
 
 
 ### A longer example
-If you have an Oracle instance, you can customize the schema and passwords. Customize the following script to your needs.
+To-do
 
-```
-CREATE USER precision100 IDENTIFIED BY "Welcome123"; 
-GRANT CONNECT TO precision100;
-GRANT CONNECT, RESOURCE, DBA TO precision100;
-GRANT CREATE SESSION TO precision100;
-GRANT ALL PRIVILEGE TO precision100;
-GRANT UNLIMITED TABLESPACE TO precision100;
-```
-
-Once the schema and passwords are created, change `.env.sh` to reflect the customized attributes.
-
-```
-git clone http://localhost:50080/precision-100-migration-framework/precision-100-framework.git
-cd precision-100-framework
-
-vi .env.sh
-```
-
-Change the Oracle database connection parameters as per your requirement
-```
-export USERNAME=precision100
-export PASSWORD=Welcome123
-export SID=mig
-```
-
-Now run the following, you should be able to see 2 records in the output table.
-
-```
-./migration.sh demo_migration mock001
-```
-
+### A longer longer example
+To-do
 
 ## Prerequisites
 The framework requires the following components to work
 
 1) Oracle database
-2) SQL Plus
-3) SQL Loader
-4) git client
-5) git repository
-6) bash shell
+2) Oracle Client tools (SQL Plus / SQL Loader)
+3) A `git` repository or you can use [Github](http://github.com)
+4) `git` client
 
 ## Setup
-Thank you very much for considering to contribute!
+### Oracle
+Precision 100 Framework uses an Oracle database to stage and transform data. Oracle-XE or a docker instance can be used to demo the framework. The framework creates a Oracle user/schema named `precision100` (default, can be changed) during installation
+
+Oracle XE documentation can be found [here](https://docs.oracle.com/cd/E17781_01/index.htm). For dockers, the following links can be useful,
+
+1. [https://github.com/fuzziebrain/docker-oracle-xe](https://github.com/fuzziebrain/docker-oracle-xe)
+2. [https://github.com/DeepDiver1975/docker-oracle-xe-11g](https://github.com/DeepDiver1975/docker-oracle-xe-11g)
+
+
+### Oracle Client Tools
+Precision100 Framework requires `sqlplus` and `sqlldr` to be installed and available.
+These tools form a part of the ['Oracle Instant Client'](https://www.oracle.com/technetwork/database/database-technologies/instant-client/overview/index.html) and can be freely installed. The `basic`,`sqlplus` and the `tools` packages must be installed for the framework to work.
+
+Once installed, note the location where the client is installed. This should be set to the value of ORACLE_HOME during the installation of the framework.
+
+e.g In Ubuntu, Oracle Instant client version 18.3 is installed in `/usr/lib/oracle/18.3/client64/` folder. In this document whenever we refer to *ORACLE_HOME* - we mean this location
+
+#### Configuring TNS entries
+Oracle clients use entries in `$ORACLE_HOME/network/admin/tnsnames.ora` to connect to the database. Create this file if it does not exist and add connection string relevant to your Oracle database.
+
+e.g. To connect to an instance of Oracle XE running in a local machine and port 49161
+
+```
+MIG = (DESCRIPTION = (ADDRESS_LIST = (ADDRESS = (PROTOCOL = TCP)(HOST = localhost)(PORT = 49161))) (CONNECT_DATA = (SID = xe)))
+```
+
+Now you should be able to connect to the database as follows
+ 
+```
+sqlplus precision100/Welcome123@mig
+```
+
+
+
+### Git Repository 
+Precision100 framework data templates are stored in `git` repositories. This repository can be hosted online like the [precision-100-migration-templates](https://github.com/ennovatenow/precision-100-migration-templates.git) on GitHub or hosted on premise within the network using Gitlab or any other `git` server.
+
+We can also use a docker image to try out the framework. A guide to installing GitLab using docker can be found [here](https://docs.gitlab.com/ee/install/docker.html)
+
+### Git Client
+To install the `git` client,
+```
+sudo apt-get update
+sudo apt-get install git
+git --version
+```
+
+[Here](https://www.atlassian.com/git/tutorials/install-git) is a good article to install `git` on other platforms
+
+
 
 ## Contributing
 Thank you very much for considering to contribute!
