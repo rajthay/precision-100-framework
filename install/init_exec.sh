@@ -20,6 +20,7 @@ source ./conf/.env.sh
 mkdir -p "$SPOOL_PATH"
 mkdir -p "$SQLLDR_LOG"
 mkdir -p "$SQLLDR_BAD"
+mkdir -p "$SQLLDR_INPUT"
 mkdir -p "$GIT_WORK_FOLDER"
 
 git clone "$GIT_URL" "$GIT_WORK_FOLDER"
