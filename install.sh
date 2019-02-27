@@ -160,6 +160,6 @@ export PROJECT_FOLDER=$PROJECT_NAME
 export REPO_TYPE=$REPO_TYPE
 
 REPOENV
-
+ 
 cp ./install/bin/*.sh $PRECISION100_FOLDER/bin
 cp ./install/*.sh $PRECISION100_FOLDER

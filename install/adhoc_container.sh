@@ -9,7 +9,7 @@ source ./conf/.env.sh
 export OPERATION="ADHOC_CONTAINER"
 
 cd $GIT_WORK_FOLDER
-#git pull origin $EXECUTION_NAME
+
 $PRECISION100_FOLDER/repo_refresh.sh
 
 CONTAINER=$1
