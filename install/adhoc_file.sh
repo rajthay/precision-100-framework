@@ -9,7 +9,8 @@ source ./conf/.env.sh
 export OPERATION="ADHOC"
 
 cd $GIT_WORK_FOLDER
-git pull origin $EXECUTION_NAME
+#git pull origin $EXECUTION_NAME
+./repo_refresh.sh $EXECUTION_NAME
 
 CONTAINER=$1
 FILE_NAME=$2

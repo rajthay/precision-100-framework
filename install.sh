@@ -38,11 +38,22 @@ PRECISION100_USER_PASSWORD=${INPUT_PRECISION100_PASSWORD:-$DEFAULT_PRECISION100_
 read -p "Enter Precision100 installation folder [$DEFAULT_PRECISION100_HOME]: " INPUT_PRECISION100_FOLDER
 PRECISION100_FOLDER=${INPUT_PRECISION100_FOLDER:-$DEFAULT_PRECISION100_HOME}
 
-read -p "Enter GIT URL for the migration templates [$DEFAULT_GIT_URL] " INPUT_GIT_URL
+read -p "Enter Repository URL for the migration templates [$DEFAULT_GIT_URL] " INPUT_GIT_URL
 GIT_URL=${INPUT_GIT_URL:-$DEFAULT_GIT_URL}
 
 read -p "Enter migration project name [simple-demo]" INPUT_PROJECT_NAME
 PROJECT_NAME=${INPUT_PROJECT_NAME:-$DEFAULT_PROJECT_NAME}
+
+if [[ $GIT_URL == git* ]]
+then
+REPO_TYPE="GIT"
+elif [[ $GIT_URL == file* ]]
+then
+REPO_TYPE="FILE"
+elif [[ $GIT_URL == https* ]]
+then
+REPO_TYPE="HTTPS"
+fi
 
 export ORACLE_HOME=/usr/lib/oracle/18.3/client64/
 export LD_LIBRARY_PATH="$ORACLE_HOME"/lib
@@ -119,7 +130,7 @@ export PRECISION100_FOLDER=$PRECISION100_FOLDER
 export PROJECT_NAME=$PROJECT_NAME
 
 source $PRECISION100_FOLDER/conf/.oraenv.sh
-source $PRECISION100_FOLDER/conf/.gitenv.sh
+source $PRECISION100_FOLDER/conf/.repo.env
 
 source $PRECISION100_FOLDER/conf/.execution.env.sh
 
@@ -142,12 +153,13 @@ export SIMULATION_SLEEP=2
 
 ENV
 
-cat > $PRECISION100_FOLDER/conf/.gitenv.sh << GITENV
+cat > $PRECISION100_FOLDER/conf/.repo.env << REPOENV
 
-export GIT_URL=$GIT_URL
+export REPO_URL=$GIT_URL
 export PROJECT_FOLDER=$PROJECT_NAME
+EXPORT REPO_TYPE
 
-GITENV
+REPOENV
 
 cp ./install/bin/*.sh $PRECISION100_FOLDER/bin
 cp ./install/*.sh $PRECISION100_FOLDER

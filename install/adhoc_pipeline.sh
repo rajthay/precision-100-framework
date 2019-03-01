@@ -9,7 +9,8 @@ source ./conf/.env.sh
 export OPERATION="ADHOC_PIPELINE"
 
 cd $GIT_WORK_FOLDER
-git pull origin $EXECUTION_NAME
+#git pull origin $EXECUTION_NAME
+./repo_refresh.sh $EXECUTION_NAME
 
 PIPELINE=$1
 if [ ! -z "$2" ]; then

@@ -10,7 +10,8 @@ source ./conf/.env.sh
 export OPERATION="ADHOC_DATAFLOW"
 
 cd $GIT_WORK_FOLDER
-git pull origin $EXECUTION_NAME
+#git pull origin $EXECUTION_NAME
+./repo_refresh.sh $EXECUTION_NAME
 
 DATAFLOW=$1
 if [ ! -z "$2" ]; then
