@@ -23,8 +23,8 @@ mkdir -p "$SQLLDR_BAD"
 mkdir -p "$SQLLDR_INPUT"
 mkdir -p "$GIT_WORK_FOLDER"
 
-git clone "$GIT_URL" "$GIT_WORK_FOLDER"
-#$PRECISION100_FOLDER/repo_clone.sh
+#git clone "$GIT_URL" "$GIT_WORK_FOLDER"
+$PRECISION100_FOLDER/repo_clone.sh
 
 cd "$GIT_WORK_FOLDER"
 
