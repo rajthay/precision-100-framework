@@ -10,7 +10,7 @@ export OPERATION="ADHOC"
 
 cd $GIT_WORK_FOLDER
 #git pull origin $EXECUTION_NAME
-./repo_refresh.sh $EXECUTION_NAME
+$PRECISION100_FOLDER/repo_refresh.sh
 
 CONTAINER=$1
 FILE_NAME=$2
