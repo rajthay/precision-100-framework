@@ -21,14 +21,11 @@ mkdir -p "$SPOOL_PATH"
 mkdir -p "$SQLLDR_LOG"
 mkdir -p "$SQLLDR_BAD"
 mkdir -p "$SQLLDR_INPUT"
-mkdir -p "$GIT_WORK_FOLDER"
+mkdir -p "$REPO_WORK_FOLDER"
 
-#git clone "$GIT_URL" "$GIT_WORK_FOLDER"
-$PRECISION100_FOLDER/repo_clone.sh
+#git clone "$REPO_URL" "$REPO_WORK_FOLDER"
+$PRECISION100_FOLDER/bin/repo_clone.sh
 
-cd "$GIT_WORK_FOLDER"
+cd "$REPO_WORK_FOLDER"
 
-git branch "$EXECUTION_NAME"
-git checkout "$EXECUTION_NAME"
-
-git push -u origin "$EXECUTION_NAME"
+$PRECISION100_FOLDER/bin/repo_operations.sh

@@ -11,7 +11,7 @@ DEFAULT_PRECISION100_USER=precision100
 DEFAULT_PRECISION100_USER_PASSWORD=Welcome123
 
 DEFAULT_PRECISION100_HOME=$HOME/precision100
-DEFAULT_GIT_URL="git@github.com:ennovatenow/precision-100-migration-templates.git"
+DEFAULT_REPO_URL="git@github.com:ennovatenow/precision-100-migration-templates.git"
 DEFAULT_PROJECT_NAME=simple-demo
 
 echo "The user should be able to create the '$DEFAULT_PRECISION100_USER' user and give it the"
@@ -38,19 +38,20 @@ PRECISION100_USER_PASSWORD=${INPUT_PRECISION100_PASSWORD:-$DEFAULT_PRECISION100_
 read -p "Enter Precision100 installation folder [$DEFAULT_PRECISION100_HOME]: " INPUT_PRECISION100_FOLDER
 PRECISION100_FOLDER=${INPUT_PRECISION100_FOLDER:-$DEFAULT_PRECISION100_HOME}
 
-read -p "Enter Repository URL for the migration templates [$DEFAULT_GIT_URL] " INPUT_GIT_URL
-GIT_URL=${INPUT_GIT_URL:-$DEFAULT_GIT_URL}
+read -p "Enter Repository URL for the migration templates [$DEFAULT_REPO_URL] " INPUT_REPO_URL
+REPO_URL=${INPUT_REPO_URL:-$DEFAULT_REPO_URL}
 
 read -p "Enter migration project name [simple-demo]" INPUT_PROJECT_NAME
 PROJECT_NAME=${INPUT_PROJECT_NAME:-$DEFAULT_PROJECT_NAME}
 
-if [[ $GIT_URL == git* ]]
+if [[ $REPO_URL == git* ]]
 then
 REPO_TYPE="GIT"
-elif [[ $GIT_URL == file* ]]
+elif [[ $REPO_URL == file* ]]
 then
 REPO_TYPE="FILE"
-elif [[ $GIT_URL == https* ]]
+REPO_URL=${REPO_URL/"file://"/}
+elif [[ $REPO_URL == https* ]]
 then
 REPO_TYPE="HTTPS"
 fi
@@ -138,15 +139,15 @@ INSTALL_FOLDER
 
 cat >> $PRECISION100_FOLDER/conf/.env.sh << 'ENV'
 
-export GIT_WORK_FOLDER=$PRECISION100_WORK_FOLDER/git-local
+export REPO_WORK_FOLDER=$PRECISION100_WORK_FOLDER/git-local
 export SQLLDR_INPUT=$PRECISION100_WORK_FOLDER/input
 export SQLLDR_LOG=$PRECISION100_WORK_FOLDER/sqlldr_log
 export SQLLDR_BAD=$PRECISION100_WORK_FOLDER/sqlldr_bad
 export SPOOL_PATH=$PRECISION100_WORK_FOLDER/spool
 
-export CONTAINER_FOLDER="$GIT_WORK_FOLDER/$PROJECT_FOLDER/containers"
-export PIPELINE_FOLDER="$GIT_WORK_FOLDER/$PROJECT_FOLDER/pipelines"
-export DATAFLOW_FOLDER="$GIT_WORK_FOLDER/$PROJECT_FOLDER/dataflows"
+export CONTAINER_FOLDER="$REPO_WORK_FOLDER/$PROJECT_FOLDER/containers"
+export PIPELINE_FOLDER="$REPO_WORK_FOLDER/$PROJECT_FOLDER/pipelines"
+export DATAFLOW_FOLDER="$REPO_WORK_FOLDER/$PROJECT_FOLDER/dataflows"
 
 export SIMULATION_MODE=FALSE
 export SIMULATION_SLEEP=2
@@ -155,7 +156,7 @@ ENV
 
 cat > $PRECISION100_FOLDER/conf/.repo.env << REPOENV
 
-export REPO_URL=$GIT_URL
+export REPO_URL=$REPO_URL
 export PROJECT_FOLDER=$PROJECT_NAME
 export REPO_TYPE=$REPO_TYPE
 

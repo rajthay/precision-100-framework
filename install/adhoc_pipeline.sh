@@ -8,9 +8,9 @@ source ./conf/.env.sh
 
 export OPERATION="ADHOC_PIPELINE"
 
-cd $GIT_WORK_FOLDER
+cd $REPO_WORK_FOLDER
 
-$PRECISION100_FOLDER/repo_refresh.sh
+$PRECISION100_FOLDER/bin/repo_refresh.sh
 
 PIPELINE=$1
 if [ ! -z "$2" ]; then
