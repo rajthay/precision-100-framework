@@ -1,7 +1,5 @@
 #!/bin/bash
 
-source ./conf/.env.sh
-
 if [ $REPO_TYPE == "GIT" -o $REPO_TYPE == "HTTPS" ]
 then
 
