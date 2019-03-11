@@ -5,7 +5,7 @@ if test "$3" = "TRUE"; then
    echo "        END SQL ADAPTOR $2"
    exit;
 fi
-sqlplus -s /nolog << EOL 1> >(tee -a $PRECISION100_LOG_FOLDER/sqlerr.log) 2> >(tee -a $PRECISION100_LOG_FOLDER/sqlerr.log >&2)
+sqlplus -s /nolog << EOL 1> >(tee -a $PRECISION100_LOG_FOLDER/sql.log) 2> >(tee -a $PRECISION100_LOG_FOLDER/sql-err.log >&2)
 CONNECT $USERNAME/$PASSWORD@$SID
 SET FEEDBACK OFF
 EXEC PROGRESS_LOGS_PKG.LOG('$0','PRE-SQL','$PROJECT_FOLDER / $EXECUTION_NAME / $OPERATION / $SIMULATION_MODE / $2');
