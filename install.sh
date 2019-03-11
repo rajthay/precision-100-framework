@@ -44,16 +44,13 @@ REPO_URL=${INPUT_REPO_URL:-$DEFAULT_REPO_URL}
 read -p "Enter migration project name [simple-demo]" INPUT_PROJECT_NAME
 PROJECT_NAME=${INPUT_PROJECT_NAME:-$DEFAULT_PROJECT_NAME}
 
-if [[ $REPO_URL == git* ]]
-then
-REPO_TYPE="GIT"
-elif [[ $REPO_URL == file* ]]
-then
-REPO_TYPE="FILE"
-REPO_URL=${REPO_URL/"file://"/}
-elif [[ $REPO_URL == https* ]]
-then
-REPO_TYPE="HTTPS"
+if [[ $REPO_URL == git* ]] then
+  REPO_TYPE="GIT"
+elif [[ $REPO_URL == file* ]] then
+  REPO_TYPE="FILE"
+  REPO_URL=${REPO_URL/"file://"/}
+elif [[ $REPO_URL == https* ]] then
+  REPO_TYPE="HTTPS"
 fi
 
 export ORACLE_HOME=/usr/lib/oracle/18.3/client64/
