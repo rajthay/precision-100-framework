@@ -36,7 +36,7 @@ do
          break;
       ;;
       *)
-        $PRECISION100_FOLDER/bin/exec_dataflow.sh ${i%.*}
+        $PRECISION100_FOLDER/bin/exec_dataflow.sh ${i%.*} 1> >(tee -a $PRECISION100_LOG_FOLDER/stdout.log) 2> >(tee -a $PRECISION100_LOG_FOLDER/stderr.log >&2)
         break;
     esac;
 done;
