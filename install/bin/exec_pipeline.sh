@@ -2,7 +2,7 @@
 
 PIPELINE=$1
 
-$PRECISION100_FOLDER/bin/pre_pipeline.sh $PIPELINE
+PRE_PIPELINE_TIME=($($PRECISION100_FOLDER/bin/pre_pipeline.sh $PIPELINE))
 echo "  START PIPELINE $PIPELINE"
 if [ -f $PIPELINE_FOLDER/$PIPELINE.txt ]; then
    filelines=`cat $PIPELINE_FOLDER/$PIPELINE.txt`
@@ -12,4 +12,8 @@ if [ -f $PIPELINE_FOLDER/$PIPELINE.txt ]; then
    done;
 fi
 echo "  END PIPELINE $PIPELINE"
-$PRECISION100_FOLDER/bin/post_pipeline.sh $PIPELINE
+POST_PIPELINE_TIME=($($PRECISION100_FOLDER/bin/post_pipeline.sh $PIPELINE))
+
+
+timediff=$(( (${POST_PIPELINE_TIME[4]} - ${PRE_PIPELINE_TIME[4]}) / 1000 ))
+echo "Time taken to execute PIPELINE $PIPELINE: $timediff seconds"

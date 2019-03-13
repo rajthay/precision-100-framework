@@ -4,7 +4,7 @@ export CONTAINER=$1
 FILE_NAME=$2
 FILE_TYPE=$3
 
-$PRECISION100_FOLDER/bin/pre_file.sh $FILE_NAME $FILE_TYPE
+PRE_FILE_TIME=($($PRECISION100_FOLDER/bin/pre_file.sh $FILE_NAME $FILE_TYPE))
 echo "      START FILE $FILE_NAME";
 if test "$FILE_TYPE" = "sql"; then
     $PRECISION100_FOLDER/bin/sql_template.sh $FILE_NAME $CONTAINER_FOLDER/$CONTAINER/$FILE_NAME $SIMULATION_MODE $SIMULATION_SLEEP
@@ -24,5 +24,7 @@ if test "$FILE_TYPE" = "spool"; then
 fi
 
 echo "      END FILE $FILE_NAME";
-$PRECISION100_FOLDER/bin/post_file.sh $FILE_NAME $FILE_TYPE
+POST_FILE_TIME=($($PRECISION100_FOLDER/bin/post_file.sh $FILE_NAME $FILE_TYPE))
 
+timediff=$(( (${POST_FILE_TIME[4]} - ${PRE_FILE_TIME[4]}) / 1000 ))
+echo "Time taken to execute FILE $FILE_NAME: $timediff seconds"

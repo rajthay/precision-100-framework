@@ -10,7 +10,7 @@ if [ ! -z "$1" ]; then
     export SIMULATION_MODE="TRUE"
 fi
 if [ ! -z "$2" ]; then
-    export SIMULATION_SLEEP=$3
+    export SIMULATION_SLEEP=$2
 fi
 
 export OPERATION="migrate.sh"

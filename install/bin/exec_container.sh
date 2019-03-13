@@ -2,7 +2,7 @@
 
 CONTAINER=$1
 
-$PRECISION100_FOLDER/bin/pre_container.sh $CONTAINER
+PRE_CONTAINER_TIME=($($PRECISION100_FOLDER/bin/pre_container.sh $CONTAINER))
 
 echo "    START CONTAINER $CONTAINER";
 if [ -f $CONTAINER_FOLDER/$CONTAINER/file.txt ]; then
@@ -15,4 +15,7 @@ if [ -f $CONTAINER_FOLDER/$CONTAINER/file.txt ]; then
 fi
 echo "    END CONTAINER $CONTAINER";
 
-$PRECISION100_FOLDER/bin/post_container.sh $CONTAINER
+POST_CONTAINER_TIME=($($PRECISION100_FOLDER/bin/post_container.sh $CONTAINER))
+
+timediff=$(( (${POST_CONTAINER_TIME[4]} - ${PRE_CONTAINER_TIME[4]}) / 1000 ))
+echo "Time taken to execute CONTAINER $CONTAINER: $timediff seconds"
