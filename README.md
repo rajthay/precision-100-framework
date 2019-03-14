@@ -57,7 +57,10 @@ Precision 100 Framework uses an Oracle database to stage and transform data. Ora
 Oracle XE documentation can be found [here](https://docs.oracle.com/cd/E17781_01/index.htm). For dockers, the following links can be useful,
 
 1. [https://github.com/fuzziebrain/docker-oracle-xe](https://github.com/fuzziebrain/docker-oracle-xe)
-2. [https://github.com/DeepDiver1975/docker-oracle-xe-11g](https://github.com/DeepDiver1975/docker-oracle-xe-11g)
+2. [https://github.com/DeepDiver1975/docker-oracle-xe-11g](https://github.com/DeepDiver1975/docker-oracle-xe-11g) 
+
+
+> **Note:** Oracle XE has limitations on its size and processors used among other things. Check the FAQ [here](https://www.oracle.com/database/technologies/appdev/xe/faq.html) and use appropriately.
 
 
 ### Oracle Client Tools
