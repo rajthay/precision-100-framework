@@ -36,7 +36,13 @@ To-do
 ### A longer longer example
 To-do
 
-## Prerequisites
+## Operating System Requirements
+Precision 100 Framework uses the `bash` shell for most of its work. Although all development and tests of the framework is done on `linux`, the framwork should run on any operating system supporting the `bash` shell.
+
+## Hardware requirements
+The hardware requirements of Precision 100 Framework depend on the volume of data to be moved and the window within which it needs to be done. You can run the framework on a `linux` laptop with 4 cores and 4 gigs of RAM for a simple demo. 
+
+## Software Prerequisites
 The framework requires the following components to work
 
 1) Oracle database
