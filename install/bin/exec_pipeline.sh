@@ -16,4 +16,4 @@ POST_PIPELINE_TIME=($($PRECISION100_FOLDER/bin/post_pipeline.sh $PIPELINE))
 
 
 timediff=$(( (${POST_PIPELINE_TIME[4]} - ${PRE_PIPELINE_TIME[4]}) / 1000 ))
-echo "Time taken to execute PIPELINE $PIPELINE: $timediff seconds"
+echo "  Time taken to execute PIPELINE $PIPELINE: $timediff seconds"

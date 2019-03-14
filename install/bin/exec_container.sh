@@ -18,4 +18,4 @@ echo "    END CONTAINER $CONTAINER";
 POST_CONTAINER_TIME=($($PRECISION100_FOLDER/bin/post_container.sh $CONTAINER))
 
 timediff=$(( (${POST_CONTAINER_TIME[4]} - ${PRE_CONTAINER_TIME[4]}) / 1000 ))
-echo "Time taken to execute CONTAINER $CONTAINER: $timediff seconds"
+echo "    Time taken to execute CONTAINER $CONTAINER: $timediff seconds"

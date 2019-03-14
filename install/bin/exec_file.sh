@@ -27,4 +27,4 @@ echo "      END FILE $FILE_NAME";
 POST_FILE_TIME=($($PRECISION100_FOLDER/bin/post_file.sh $FILE_NAME $FILE_TYPE))
 
 timediff=$(( (${POST_FILE_TIME[4]} - ${PRE_FILE_TIME[4]}) / 1000 ))
-echo "Time taken to execute FILE $FILE_NAME: $timediff seconds"
+echo "      Time taken to execute FILE $FILE_NAME: $timediff seconds"
