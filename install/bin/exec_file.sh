@@ -1,30 +1,29 @@
 #!/bin/bash
 
 export CONTAINER=$1
-FILE_NAME=$2
-FILE_TYPE=$3
+SECONDS=0
+LINE=$2
+FILE_NAME=$(echo $LINE | cut -d ',' -f 2)
+FILE_TYPE=$(echo $LINE | cut -d ',' -f 3)
 
-PRE_FILE_TIME=($($PRECISION100_FOLDER/bin/pre_file.sh $FILE_NAME $FILE_TYPE))
+$PRECISION100_FOLDER/bin/pre_file.sh $FILE_NAME $FILE_TYPE
 echo "      START FILE $FILE_NAME";
-if test "$FILE_TYPE" = "sql"; then
-    $PRECISION100_FOLDER/bin/sql_template.sh $FILE_NAME $CONTAINER_FOLDER/$CONTAINER/$FILE_NAME $SIMULATION_MODE $SIMULATION_SLEEP
-fi
+case "$FILE_TYPE" in
+  'sql')
+    $PRECISION100_FOLDER/bin/sql_template.sh $CONTAINER $LINE
+    ;;
+  'loader')
+   $PRECISION100_FOLDER/bin/loader_template.sh $CONTAINER $LINE
+    ;;
+  'sh')
+    $PRECISION100_FOLDER/bin/shell_template.sh $CONTAINER $LINE
+    ;;
+  'spool')
+    $PRECISION100_FOLDER/bin/spool_template.sh $CONTAINER $LINE
+    ;;
+esac
    
-if test "$FILE_TYPE" = "loader"; then
-   LOADER_FILE_NAME=${FILE_NAME%.*}
-   $PRECISION100_FOLDER/bin/loader_template.sh $CONTAINER_FOLDER/$CONTAINER/$LOADER_FILE_NAME.ctl $SQLLDR_INPUT/$LOADER_FILE_NAME.dat $SQLLDR_LOG/$LOADER_FILE_NAME.log $SQLLDR_BAD/$LOADER_FILE_NAME.bad $SIMULATION_MODE $SIMULATION_SLEEP
-fi
-
-if test "$FILE_TYPE" = "sh"; then
-    $PRECISION100_FOLDER/bin/shell_template.sh $CONTAINER_FOLDER/$CONTAINER/$FILE_NAME $SIMULATION_MODE $SIMULATION_SLEEP
-fi
-
-if test "$FILE_TYPE" = "spool"; then
-    $PRECISION100_FOLDER/bin/spool.sh $FILE_NAME $SIMULATION_MODE $SIMULATION_SLEEP
-fi
-
 echo "      END FILE $FILE_NAME";
-POST_FILE_TIME=($($PRECISION100_FOLDER/bin/post_file.sh $FILE_NAME $FILE_TYPE))
+$PRECISION100_FOLDER/bin/post_file.sh $FILE_NAME $FILE_TYPE
 
-timediff=$(( (${POST_FILE_TIME[4]} - ${PRE_FILE_TIME[4]}) / 1000 ))
-echo "      Time taken to execute FILE $FILE_NAME: $timediff seconds"
+echo "      Time taken to execute FILE $FILE_NAME: $SECONDS seconds"

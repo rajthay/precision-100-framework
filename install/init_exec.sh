@@ -17,10 +17,6 @@ ln -f -s $PRECISION100_FOLDER/conf/$EXECUTION_CONF_FILE_NAME $PRECISION100_FOLDE
 
 source ./conf/.env.sh
 
-mkdir -p "$SPOOL_PATH"
-mkdir -p "$SQLLDR_LOG"
-mkdir -p "$SQLLDR_BAD"
-mkdir -p "$SQLLDR_INPUT"
 mkdir -p "$REPO_WORK_FOLDER"
 mkdir -p "$PRECISION100_LOG_FOLDER"
 
