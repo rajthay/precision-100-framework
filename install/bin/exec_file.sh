@@ -21,6 +21,9 @@ case "$FILE_TYPE" in
   'spool')
     $PRECISION100_FOLDER/bin/spool_template.sh $CONTAINER $LINE
     ;;
+  'smartloader')
+    $PRECISION100_FOLDER/bin/smart-loader-template.sh $CONTAINER $LINE
+    ;;
 esac
    
 echo "      END FILE $FILE_NAME";
