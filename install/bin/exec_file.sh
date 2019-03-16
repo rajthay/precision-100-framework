@@ -24,6 +24,9 @@ case "$FILE_TYPE" in
   'smartloader')
     $PRECISION100_FOLDER/bin/smart-loader-template.sh $CONTAINER $LINE
     ;;
+  'map-file')
+    $PRECISION100_FOLDER/bin/map-file-template.sh $CONTAINER $LINE
+    ;;
 esac
    
 echo "      END FILE $FILE_NAME";
