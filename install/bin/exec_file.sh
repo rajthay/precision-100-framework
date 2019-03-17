@@ -27,6 +27,9 @@ case "$FILE_TYPE" in
   'map-file')
     $PRECISION100_FOLDER/bin/map-file-template.sh $CONTAINER $LINE
     ;;
+  'length-validator')
+    $PRECISION100_FOLDER/bin/length-validator-template.sh $CONTAINER $LINE
+    ;;
 esac
    
 echo "      END FILE $FILE_NAME";
