@@ -16,7 +16,7 @@ EOF
 line_count=`echo $lines | wc -w `
 
 counter=0;
-echo "INSERT INTO ${VIEW_NAME} ( VALIDATION_NAME, RECORD_COUNT ) "
+echo "INSERT INTO ${VIEW_NAME} "
 for line in $lines; do
   counter=$counter+1;
   COLUMN_NAME=$(echo $line | cut -d',' -f 1)
