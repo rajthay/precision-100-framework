@@ -176,6 +176,10 @@ connect $PRECISION100_USER/$PRECISION100_USER_PASSWORD@$ORACLE_MIG_SID
 @install/sql/O_TAB_COLUMNS.sql
 @install/sql/S_MAP.sql
 @install/sql/S_LOOKUP.sql
+@install/sql/MAP_CODES.sql
+@install/sql/MAP_CIF.sql
+@install/sql/MAP_ACC.sql
+@install/sql/MAP_OFF_ACC.sql
 exit;
 FILE_LIST
  
