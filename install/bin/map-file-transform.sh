@@ -9,6 +9,8 @@ MAPPING_VALUE_INDEX=${DEFAULT_MAPPING_VALUE_INDEX:-8}
 
 TABLE_NAME=$1
 SOURCE_FILE=$2
+JOIN_FILE=$3
+echo "TRUNCATE TABLE ${TABLE_NAME_PREFIX}_${TABLE_NAME};"
 echo "INSERT INTO ${TABLE_NAME_PREFIX}_${TABLE_NAME} ("
 counter=0
 while IFS=$'\r' read -r -a line
@@ -60,4 +62,8 @@ do
   fi
   counter=$counter+1;
 done < "${SOURCE_FILE}"
-echo "FROM DUAL;"
+while IFS=$'\r' read -r -a line
+do
+  echo $line
+done < "${JOIN_FILE}"
+echo ";"
