@@ -106,7 +106,7 @@ export PRECISION100_FOLDER=$PRECISION100_FOLDER
 export PROJECT_NAME=$PROJECT_NAME
 
 source $PRECISION100_FOLDER/conf/.oraenv.sh
-source $PRECISION100_FOLDER/conf/.repo.env
+source $PRECISION100_FOLDER/conf/.repo.env.sh
 
 source $PRECISION100_FOLDER/conf/.execution.env.sh
 
@@ -126,7 +126,7 @@ export SIMULATION_SLEEP=2
 
 ENV
 
-cat > $PRECISION100_FOLDER/conf/.repo.env << REPOENV
+cat > $PRECISION100_FOLDER/conf/.repo.env.sh << REPOENV
 
 export REPO_URL=$REPO_URL
 export PROJECT_FOLDER=$PROJECT_NAME
