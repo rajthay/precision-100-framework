@@ -3,7 +3,7 @@ INDEX=$(echo $2 | cut -d ',' -f 1)
 FILE_NAME=$(echo $2 | cut -d ',' -f 2)
 
 LOADER_FILE_NAME=${FILE_NAME}
-source $PRECISION100_FOLDER/conf/.smart-sqlloaderenv
+source $PRECISION100_FOLDER/conf/.smart-loader.env.sh
 
 mkdir -p $SMART_SQLLDR_CTL_FOLDER;
 

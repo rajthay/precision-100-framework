@@ -2,7 +2,7 @@ CONTAINER=$1
 INDEX=$(echo $2 | cut -d ',' -f 1)
 FILE_NAME=$(echo $2 | cut -d ',' -f 2)
 
-source $PRECISION100_FOLDER/conf/.sqlloaderenv
+source $PRECISION100_FOLDER/conf/.sql-loader.env.sh
 
 LOADER_FILE_NAME=${FILE_NAME%.*}
 CONTROL_FILE="$CONTAINER_FOLDER/$CONTAINER/$LOADER_FILE_NAME.ctl"

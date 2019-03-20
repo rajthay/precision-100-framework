@@ -5,7 +5,7 @@ FILE_TYPE=$(echo $2 | cut -d ',' -f 3)
 DELIMITER=$(echo $2 | cut -d ',' -f 4)
 QUOTE=$(echo $2 | cut -d ',' -f 5)
 
-source $PRECISION100_FOLDER/conf/.spoolenv
+source $PRECISION100_FOLDER/conf/.spool.env.sh
 
 if [ -z "$DELIMITER" ]; then
     DELIMITER=${DEFAULT_DELIMITER:-,}
