@@ -6,6 +6,7 @@ DATA_TYPE_INDEX=${DEFAULT_DATA_TYPE_INDEX:-2}
 MAX_LENGTH_INDEX=${DEFAULT_MAX_LENGTH_INDEX:-4}
 MAPPING_TYPE_INDEX=${DEFAULT_MAPPING_TYPE_INDEX:-7}
 MAPPING_VALUE_INDEX=${DEFAULT_MAPPING_VALUE_INDEX:-8}
+MAP_FILE_DELIMITER=${DEFAULT_MAP_FILE_DELIMITER:-~}
 
 TABLE_NAME=$1
 SOURCE_FILE=$2
@@ -13,9 +14,8 @@ JOIN_FILE=$3
 echo "TRUNCATE TABLE ${TABLE_NAME_PREFIX}_${TABLE_NAME};"
 echo "INSERT INTO ${TABLE_NAME_PREFIX}_${TABLE_NAME} ("
 counter=0
-while IFS=$'\r' read -r -a line
+while IFS=$MAP_FILE_DELIMITER read -r column_name data_type max_length mapping_code mapping_value;
 do
-  column_name=$(echo $line | cut -d',' -f $COLUMN_NAME_INDEX)
   if [[ counter -eq 0 ]]; then
     counter=$counter+1;
     continue;
@@ -31,19 +31,15 @@ done < "${SOURCE_FILE}"
 echo ") SELECT "
 
 counter=0
-while IFS=$'\r' read -r -a line
+while IFS=$MAP_FILE_DELIMITER read -r column_name data_type max_length mapping_code mapping_value;
 do
-  column_name=$(echo $line | cut -d',' -f $COLUMN_NAME_INDEX)
-  mapping_type=$(echo $line | cut -d',' -f $MAPPING_TYPE_INDEX)
-  mapping_value=$(echo $line | cut -d',' -f $MAPPING_VALUE_INDEX)
-
   if [[ counter -eq 0 ]]; then
     counter=$counter+1;
     continue;
   fi
 
   echo " -- $column_name"
-  case "$mapping_type" in
+  case "$mapping_code" in
    'CONSTANT')
      column="'$mapping_value'"
     ;;
@@ -51,7 +47,7 @@ do
      column="$mapping_value"
     ;;
    *)
-     column="'$column_name'"
+     column="NULL"
     ;;
   esac
 
@@ -62,8 +58,8 @@ do
   fi
   counter=$counter+1;
 done < "${SOURCE_FILE}"
-while IFS=$'\r' read -r -a line
+while IFS=$MAP_FILE_DELIMITER read -r mapping_value;
 do
-  echo $line
+  echo $mapping_value
 done < "${JOIN_FILE}"
 echo ";"
