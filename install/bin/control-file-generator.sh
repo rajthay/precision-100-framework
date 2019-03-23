@@ -1,5 +1,13 @@
+#!/bin/bash
+
+TABLE_NAME=$1
+DATA_FILE_SEPARATOR=$2
+
 if [ -z "$CHAR_SET" ]; then
     CHAR_SET=${DEFAULT_CHAR_SET:-WE8ISO8859P1}
+fi
+if [ -z "$DATA_FILE_SEPARATOR" ]; then
+    DATA_FILE_SEPARATOR=${DEFAULT_DATA_FILE_SEPARATOR:-,}
 fi
 
 lines="$( sqlplus -s /nolog <<EOF
@@ -9,7 +17,7 @@ SET VERIFY OFF
 set head off
 select column_name
 from   user_tab_columns
-where  table_name= upper('$1')
+where  table_name= upper('$TABLE_NAME')
 order by column_id;
 exit;
 EOF
@@ -21,7 +29,7 @@ echo "LOAD DATA"
 echo "CHARACTERSET $CHAR_SET"
 echo "INFILE *"
 echo "TRUNCATE INTO TABLE $1"
-echo "FIELDS TERMINATED BY ','"
+echo "FIELDS TERMINATED BY '$DATA_FILE_SEPARATOR'"
 echo "TRAILING NULLCOLS ("
 for line in $lines; do
   counter=$counter+1;
