@@ -1,7 +1,8 @@
 CONTAINER=$1
 INDEX=$(echo $2 | cut -d ',' -f 1)
 FILE_NAME=$(echo $2 | cut -d ',' -f 2)
-DATA_FILE_SEPARATOR=$(echo $2 | cut -d ',' -f 3)
+FILE_TYPE=$(echo $2 | cut -d ',' -f 3)
+DATA_FILE_SEPARATOR=$(echo $2 | cut -d ',' -f 4)
 
 LOADER_FILE_NAME=${FILE_NAME}
 
@@ -16,6 +17,11 @@ source $PRECISION100_FOLDER/conf/.smart-loader.env.sh
 mkdir -p "$SQLLDR_LOG"
 mkdir -p "$SQLLDR_BAD"
 mkdir -p "$SMART_SQLLDR_CTL_FOLDER";
+
+
+if [[ -z "$DATA_FILE_SEPARATOR" ]]; then
+   DATA_FILE_SEPARATOR=${DEFAULT_DATA_FILE_SEPARATOR:-,}
+fi
 
 CONTROL_FILE="$SMART_SQLLDR_CTL_FOLDER/$LOADER_FILE_NAME.ctl"
 DATA_FILE="$SQLLDR_INPUT/$LOADER_FILE_NAME.dat"

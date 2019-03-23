@@ -20,6 +20,7 @@ operator_map['length-validator']='$PRECISION100_FOLDER/bin/length-validator-temp
 
 if [ ${operator_map[$FILE_TYPE]+_} ]; then 
   echo "        ${operator_map[$FILE_TYPE]} '$CONTAINER' '$LINE'"
+  eval ${operator_map[$FILE_TYPE]} '$CONTAINER' '$LINE'
 else 
   echo $FILE_TYPE $CONTAINER $LINE
 fi
