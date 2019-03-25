@@ -1,0 +1,2 @@
+loader,'loader/bin/loader-template.sh'
+sql-loader,'loader/bin/loader-template.sh'
