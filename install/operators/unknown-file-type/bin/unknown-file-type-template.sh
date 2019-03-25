@@ -1,0 +1,26 @@
+#!/bin/bash
+
+CONTAINER=$1
+INDEX=$(echo $2 | cut -d ',' -f 1)
+FILE_NAME=$(echo $2 | cut -d ',' -f 2)
+FILE_TYPE=$(echo $2 | cut -d ',' -f 3)
+echo "        START UNKNOWN-FILE-TYPE ADAPTOR $CONTAINER_FOLDER/$CONTAINER/$FILE_NAME"
+
+if test "$SIMULATION_MODE" = "TRUE"; then
+   sleep $SIMULATION_SLEEP;
+   echo "        END UNKNOWN-FILE-TYPE ADAPTOR $CONTAINER_FOLDER/$CONTAINER/$FILE_NAME"
+   exit;
+fi
+
+source ../conf/.env.sh
+
+$PRECISION100_FOLDER/bin/audit.sh  $0 "PRE-UNKNOWN-FILE-TYPE" "$PROJECT_FOLDER / $EXECUTION_NAME / $OPERATION / $SIMULATION_MODE / $CONTAINER / $FILE_NAME" "$PROJECT_FOLDER / $EXECUTION_NAME" "UNKNOWN-FILE-TYPE" $0 "START"
+
+echo "          Unknown file matching: $FILE_TYPE"
+echo "          Are you missing an operator or have you misspelled the file type in the registry"
+
+sleep $SIMULATION_SLEEP
+
+$PRECISION100_FOLDER/bin/audit.sh  $0 "POST-UNKNOWN-FILE-TYPE" "$PROJECT_FOLDER / $EXECUTION_NAME / $OPERATION / $SIMULATION_MODE / $CONTAINER / $FILE_NAME" "$PROJECT_FOLDER / $EXECUTION_NAME" "UNKNOWN-FILE-TYPE" $0 "END"
+
+echo "        END UNKNOWN-FILE-TYPE ADAPTOR $CONTAINER_FOLDER/$CONTAINER/$FILE_NAME"

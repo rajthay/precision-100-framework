@@ -27,7 +27,7 @@ do
   fi
   counter=$counter+1;
   echo ", $column_name"
-done < "${SOURCE_FILE}"
+done < <(cat ${SOURCE_FILE} | tr '\t' '~')
 echo ") SELECT "
 
 counter=0
@@ -57,7 +57,7 @@ do
     echo ", $column"
   fi
   counter=$counter+1;
-done < "${SOURCE_FILE}"
+done < <(cat ${SOURCE_FILE} | tr '\t' '~')
 while IFS=$MAP_FILE_DELIMITER read -r mapping_value;
 do
   echo $mapping_value

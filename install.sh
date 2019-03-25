@@ -59,17 +59,22 @@ export PATH="$ORACLE_HOME/bin:$PATH"
 export TNS_ADMIN="$ORACLE_HOME/lib/network/admin"
 
 export PRECISION100_LOG_FOLDER=$PRECISION100_FOLDER/log
+export PRECISION100_OPERATORS_FOLDER=$PRECISION100_FOLDER/operators
 
 if [ ! -d "$PRECISION100_FOLDER/conf" ]; then
   mkdir -p "$PRECISION100_FOLDER/conf"
 fi
 
-if [ ! -d "$PRECISION100_FOLDER/log" ]; then
-  mkdir -p "$PRECISION100_FOLDER/log"
+if [ ! -d "$PRECISION100_LOG_FOLDER" ]; then
+  mkdir -p "$PRECISION100_LOG_FOLDER"
 fi
 
 if [ ! -d "$PRECISION100_FOLDER/bin" ]; then
   mkdir -p "$PRECISION100_FOLDER/bin"
+fi
+
+if [ ! -d "$PRECISION100_OPERATORS_FOLDER" ]; then
+  mkdir -p "$PRECISION100_OPERATORS_FOLDER"
 fi
 
 cat > $PRECISION100_FOLDER/conf/.default.env.sh << DEFAULT_ENV
@@ -152,11 +157,11 @@ connect $PRECISION100_USER/$PRECISION100_USER_PASSWORD@$ORACLE_MIG_SID
 @install/sql/PERFORMANCE_LOGS.sql
 @install/sql/PROGRESS_LOGS.sql
 @install/sql/O_TAB_COLUMNS.sql
-@install/sql/S_MAP.sql
 @install/sql/MAP_CODES.sql
 exit;
 FILE_LIST
  
 cp ./install/bin/*.sh $PRECISION100_FOLDER/bin
 cp ./install/conf/.*.sh $PRECISION100_FOLDER/conf
+cp -R ./install/operators/* $PRECISION100_OPERATORS_FOLDER
 cp ./install/*.sh $PRECISION100_FOLDER

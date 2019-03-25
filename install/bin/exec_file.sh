@@ -10,6 +10,13 @@ $PRECISION100_FOLDER/bin/pre_file.sh $FILE_NAME $FILE_TYPE
 echo "      START FILE $FILE_NAME";
 
 declare -A operator_map
+
+#while IFS=$',\r' read key value;
+#do
+   #operator_map["$key"]="$value"
+   #echo $key $value
+#done < <(cat $PRECISION100_FOLDER/operators/*/operator.reg)
+
 operator_map['sql']='$PRECISION100_FOLDER/bin/sql_template.sh'
 operator_map['loader']='$PRECISION100_FOLDER/bin/loader_template.sh'
 operator_map['sh']='$PRECISION100_FOLDER/bin/shell_template.sh'
