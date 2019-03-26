@@ -14,7 +14,7 @@ if test "$SIMULATION_MODE" = "TRUE"; then
    exit;
 fi
 
-source $PRECISION100_FOLDER/conf/.length-validator.env.sh
+source $PRECISION100_OPERATORS_FOLDER/length-validator/conf/.length-validator.env.sh
 mkdir -p $LENGTH_VALIDATOR_WORK_FOLDER;
 if [[ -z "$VIEW_NAME" ]]; then
   VIEW_NAME="${DEFAULT_VIEW_PREFIX:-V}_${FILE_NAME}_${DEFAULT_VIEW_SUFFIX:-L}"
