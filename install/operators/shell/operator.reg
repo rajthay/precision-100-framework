@@ -1,2 +1,2 @@
-sh,'shell/bin/shell-template.sh'
-shell,'shell/bin/shell-template.sh'
+sh,"$PRECISION100_OPERATORS_FOLDER/shell/bin/shell-template.sh"
+shell,"$PRECISION100_OPERATORS_FOLDER/shell/bin/shell-template.sh"

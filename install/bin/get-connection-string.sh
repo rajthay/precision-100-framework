@@ -16,9 +16,9 @@ do
 done < <(cat $PRECISION100_CONNECTORS_FOLDER/*/connection.reg)
 
 if [ ${connection_map[$CONNECTION_TYPE]+_} ]; then 
-  CONNECTION_STRING="$PRECISION100_CONNECTORS_FOLDER/${connection_map[$CONNECTION_TYPE]}"
+  CONNECTION_STRING=${connection_map[$CONNECTION_TYPE]}
 else 
-  CONNECTION_STRING="$PRECISION100_CONNECTORS_FOLDER/${connection_map['unknown-connection-type']}"
+  CONNECTION_STRING=${connection_map['unknown-connection-type']}
 fi
 eval "${CONNECTION_STRING} $LINE";
 

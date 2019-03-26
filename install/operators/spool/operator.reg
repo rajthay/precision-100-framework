@@ -1,1 +1,1 @@
-spool,'spool/bin/spool-template.sh'
+spool,"$PRECISION100_OPERATORS_FOLDER/spool/bin/spool-template.sh"

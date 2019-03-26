@@ -18,7 +18,7 @@ done < <(cat $PRECISION100_FOLDER/operators/*/operator.reg)
 
 echo "        executing operator ${operator_map[$FILE_TYPE]} '$CONTAINER' '$LINE'"
 if [ ${operator_map[$FILE_TYPE]+_} ]; then 
-  EXEC_STRING="$PRECISION100_OPERATORS_FOLDER/${operator_map[$FILE_TYPE]}"
+  EXEC_STRING=${operator_map[$FILE_TYPE]}
 else 
   EXEC_STRING="$PRECISION100_OPERATORS_FOLDER/${operator_map['unknown-file-type']}"
 fi

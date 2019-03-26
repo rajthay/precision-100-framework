@@ -1,1 +1,1 @@
-ORACLE,oracle/bin/connection.sh
+ORACLE,"$PRECISION100_CONNECTIONS_FOLDER/oracle/bin/connection.sh"
