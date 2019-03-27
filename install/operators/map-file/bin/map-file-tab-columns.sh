@@ -23,4 +23,4 @@ do
      max_length=0
   fi
   echo "INSERT INTO O_TAB_COLUMNS ( TABLE_NAME, COLUMN_NAME, DATA_TYPE, DATA_LENGTH ) VALUES ( UPPER('${MAPPED_TABLE_NAME}'), UPPER('$column_name'), UPPER('$data_type'), $max_length);"
-done < <(cat ${SOURCE_FILE} | tr '\t' '~')
+done < <(cat ${SOURCE_FILE} | tr '\t' '~' | tr -d '\r')

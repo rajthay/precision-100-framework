@@ -27,7 +27,7 @@ do
   fi
   counter=$counter+1;
   echo ", $column_name"
-done < <(cat ${SOURCE_FILE} | tr '\t' '~')
+done < <(cat ${SOURCE_FILE} | tr '\t' '~' | tr -d '\r')
 echo ") SELECT "
 
 counter=0
@@ -37,14 +37,14 @@ do
     counter=$counter+1;
     continue;
   fi
-  cleaned_mapping_value=$(echo $mapping_value | tr -d '\r')
+
   echo " -- $column_name"
   case "$mapping_code" in
    'CONSTANT')
-     column="'$cleaned_mapping_value'"
+     column="'$mapping_value'"
     ;;
    'PASSTHRU')
-     column="$cleaned_mapping_value"
+     column="$mapping_value"
     ;;
    *)
      column="NULL"
@@ -57,10 +57,9 @@ do
     echo ", $column"
   fi
   counter=$counter+1;
-done < <(cat ${SOURCE_FILE} | tr '\t' '~')
+done < <(cat ${SOURCE_FILE} | tr '\t' '~' | tr -d '\r')
 while IFS=$MAP_FILE_DELIMITER read -r mapping_value;
 do
-  cleaned_mapping_value=$(echo $mapping_value | tr -d '\r')
-  echo $cleaned_mapping_value
-done < "${JOIN_FILE}"
+  echo $mapping_value
+done < <( cat ${JOIN_FILE} | tr -d '\r')
 echo ";"

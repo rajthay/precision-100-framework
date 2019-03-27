@@ -26,5 +26,5 @@ do
   fi
   counter=$counter+1;
   echo ", $column_name $COLUMN_DATA_TYPE"
-done < <(cat ${SOURCE_FILE} | tr '\t' '~')
+done < <(cat ${SOURCE_FILE} | tr '\t' '~' | tr -d '\r')
 echo ");"
