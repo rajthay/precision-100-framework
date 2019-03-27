@@ -37,14 +37,14 @@ do
     counter=$counter+1;
     continue;
   fi
-
+  cleaned_mapping_value=$(echo $mapping_value | tr -d '\r')
   echo " -- $column_name"
   case "$mapping_code" in
    'CONSTANT')
-     column="'$mapping_value'"
+     column="'$cleaned_mapping_value'"
     ;;
    'PASSTHRU')
-     column="$mapping_value"
+     column="$cleaned_mapping_value"
     ;;
    *)
      column="NULL"
@@ -60,6 +60,7 @@ do
 done < <(cat ${SOURCE_FILE} | tr '\t' '~')
 while IFS=$MAP_FILE_DELIMITER read -r mapping_value;
 do
-  echo $mapping_value
+  cleaned_mapping_value=$(echo $mapping_value | tr -d '\r')
+  echo $cleaned_mapping_value
 done < "${JOIN_FILE}"
 echo ";"
