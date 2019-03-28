@@ -20,9 +20,11 @@ source ./conf/.env.sh
 mkdir -p "$REPO_WORK_FOLDER"
 mkdir -p "$PRECISION100_LOG_FOLDER"
 
-#git clone "$REPO_URL" "$REPO_WORK_FOLDER"
-$PRECISION100_FOLDER/bin/repo_clone.sh
+log_file_name="$PRECISION100_LOG_FOLDER/init-exec-$(date +%F-%H-%M-%S).out"
+err_file_name="$PRECISION100_LOG_FOLDER/init-exec-$(date +%F-%H-%M-%S).err"
+
+$PRECISION100_FOLDER/bin/repo-template.sh 'CHECKOUT' 1> >(tee -a "$log_file_name") 2> >(tee -a "$err_file_name" >&2)
 
 cd "$REPO_WORK_FOLDER"
 
-$PRECISION100_FOLDER/bin/repo_operations.sh
+$PRECISION100_FOLDER/bin/repo-template.sh 'BRANCH' 1> >(tee -a "$log_file_name") 2> >(tee -a "$err_file_name" >&2)
