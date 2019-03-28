@@ -174,6 +174,7 @@ connect $PRECISION100_USER/$PRECISION100_USER_PASSWORD@$ORACLE_MIG_SID
 @install/sql/PERFORMANCE_LOGS.sql
 @install/sql/PROGRESS_LOGS.sql
 @install/sql/O_TAB_COLUMNS.sql
+@install/sql/TRANSFORM_INTERCEPTOR.sql
 @install/sql/MAP_CODES.sql
 exit;
 FILE_LIST

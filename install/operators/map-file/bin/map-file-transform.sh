@@ -11,7 +11,8 @@ MAP_FILE_DELIMITER=${DEFAULT_MAP_FILE_DELIMITER:-~}
 TABLE_NAME=$1
 SOURCE_FILE=$2
 JOIN_FILE=$3
-echo "TRUNCATE TABLE ${TABLE_NAME_PREFIX}_${TABLE_NAME};"
+
+echo "EXEC TRANSFORM_INTERCEPTOR('PRE','${TABLE_NAME}'); "
 echo "INSERT INTO ${TABLE_NAME_PREFIX}_${TABLE_NAME} ("
 counter=0
 while IFS=$MAP_FILE_DELIMITER read -r column_name data_type max_length mapping_code mapping_value;
@@ -58,8 +59,10 @@ do
   fi
   counter=$counter+1;
 done < <(cat ${SOURCE_FILE} | tr '\t' '~' | tr -d '\r')
+
 while IFS=$MAP_FILE_DELIMITER read -r mapping_value;
 do
   echo $mapping_value
 done < <( cat ${JOIN_FILE} | tr -d '\r')
 echo ";"
+echo "EXEC TRANSFORM_INTERCEPTOR('POST','${TABLE_NAME}'); "
