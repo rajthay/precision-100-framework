@@ -17,26 +17,71 @@ export OPERATION="migrate.sh"
 
 DATAFLOW_FILES=`basename --suffix .txt -a $DATAFLOW_FOLDER/*.txt`
 echo $DATAFLOW_FILES;
-clear
-echo "****************************************************************"
-echo "                                                                "
-echo "                  Precision 100 Execution                       "
-echo "                                                                "
-echo "  Project Name: $PROJECT_FOLDER                                 "
-echo "                                                                "
-echo "  Iteration: $EXECUTION_NAME                                    "
-echo "                                                                "
-echo "  Simulation Mode: $SIMULATION_MODE                             "
-echo "                                                                "
-echo "****************************************************************"
-select i in $DATAFLOW_FILES "Quit";
-do
+function banner() {
+  clear
+  echo "****************************************************************"
+  echo "                                                                "
+  echo "                  Precision 100 Execution                       "
+  echo "                                                                "
+  echo "  Project Name: $PROJECT_FOLDER                                 "
+  echo "                                                                "
+  echo "  Iteration: $EXECUTION_NAME                                    "
+  echo "                                                                "
+  echo "  Simulation Mode: $SIMULATION_MODE                             "
+  echo "                                                                "
+  echo "****************************************************************"
+}
+
+function ask_question() {
+  if [ -s $1 ]; then
+    echo ".."
+    sleep 1
+    echo "...."
+    sleep 1
+    echo "......"
+    sleep 1
+    echo "........"
+    sleep 1
+    echo "......"
+    sleep 1
+    echo "...."
+    sleep 1
+    echo ".."
+    sleep 1
+    echo "Log file $1 created"
+    echo "Would you like to view the log file ?"
+    select yn in "Yes" "No"; do
+      case $yn in
+        "Yes") 
+          vi $1
+          break;;
+        "No") 
+          break;;
+      esac
+    done
+  fi
+}
+
+function main_loop() {
+  banner
+  select i in $DATAFLOW_FILES "Quit";
+  do
     case $i in 
       "Quit")
-         break;
+         exit;
       ;;
       *)
-        $PRECISION100_FOLDER/bin/exec_dataflow.sh ${i%.*} 1> >(tee -a $PRECISION100_LOG_FOLDER/stdout.log) 2> >(tee -a $PRECISION100_LOG_FOLDER/stderr.log >&2)
-        break;
+	log_file_name="$PRECISION100_LOG_FOLDER/${i}-$(date +%F-%H-%M-%S).out"
+	err_file_name="$PRECISION100_LOG_FOLDER/${i}-$(date +%F-%H-%M-%S).err"
+        $PRECISION100_FOLDER/bin/exec_dataflow.sh ${i%.*} 1> >(tee -a "$log_file_name") 2> >(tee -a "$err_file_name" >&2)
+
+	ask_question ${log_file_name}
+	break;;
     esac;
-done;
+  done;
+}
+
+while true
+do
+   main_loop;
+done
