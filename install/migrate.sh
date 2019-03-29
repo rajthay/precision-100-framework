@@ -15,7 +15,7 @@ fi
 
 export OPERATION="migrate.sh"
 
-DATAFLOW_FILES=`basename --suffix .txt -a $DATAFLOW_FOLDER/*.txt`
+DATAFLOW_FILES=$($PRECISION100_FOLDER/bin/get-dataflows.sh)
 echo $DATAFLOW_FILES;
 function banner() {
   clear
