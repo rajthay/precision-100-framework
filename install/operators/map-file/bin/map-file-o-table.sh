@@ -11,11 +11,15 @@ MAP_FILE_DELIMITER=${DEFAULT_MAP_FILE_DELIMITER:-~}
 
 TABLE_NAME=$1
 SOURCE_FILE=$2
+
 echo "DROP TABLE ${TABLE_NAME_PREFIX}_${TABLE_NAME};"
 echo "CREATE TABLE ${TABLE_NAME_PREFIX}_${TABLE_NAME} ("
 counter=0
 while IFS=$MAP_FILE_DELIMITER read -r column_name data_type max_length mapping_code mapping_value;
 do
+  if [[ -z "$column_name" ]]; then
+    continue;
+  fi
   if [[ counter -eq 0 ]]; then
     counter=$counter+1;
     continue;
@@ -27,7 +31,7 @@ do
   fi
   counter=$counter+1;
   echo ", $column_name $COLUMN_DATA_TYPE"
-done < <(cat ${SOURCE_FILE} | tr '\t' '~' | tr -d '\r')
+done < <(cat ${SOURCE_FILE} | tr '\t' '~' | tr -d '\r' | grep .)
 echo ");"
 
 # Create the r tables
@@ -36,6 +40,9 @@ echo "CREATE TABLE ${REVERSE_TABLE_NAME_PREFIX}_${TABLE_NAME} ("
 counter=0
 while IFS=$MAP_FILE_DELIMITER read -r column_name data_type max_length mapping_code mapping_value;
 do
+  if [[ -z "$column_name" ]]; then
+    continue;
+  fi
   if [[ counter -eq 0 ]]; then
     counter=$counter+1;
     continue;
@@ -47,5 +54,5 @@ do
   fi
   counter=$counter+1;
   echo ", $column_name $COLUMN_DATA_TYPE"
-done < <(cat ${SOURCE_FILE} | tr '\t' '~' | tr -d '\r')
+done < <(cat ${SOURCE_FILE} | tr '\t' '~' | tr -d '\r' | grep .)
 echo ");"

@@ -17,6 +17,9 @@ echo "INSERT INTO ${TABLE_NAME_PREFIX}_${TABLE_NAME} ("
 counter=0
 while IFS=$MAP_FILE_DELIMITER read -r column_name data_type max_length mapping_code mapping_value;
 do
+  if [[ -z "$column_name" ]]; then
+    continue;
+  fi
   if [[ counter -eq 0 ]]; then
     counter=$counter+1;
     continue;
@@ -28,12 +31,15 @@ do
   fi
   counter=$counter+1;
   echo ", $column_name"
-done < <(cat ${SOURCE_FILE} | tr '\t' '~' | tr -d '\r')
+done < <(cat ${SOURCE_FILE} | tr '\t' '~' | tr -d '\r' | grep .)
 echo ") SELECT "
 
 counter=0
 while IFS=$MAP_FILE_DELIMITER read -r column_name data_type max_length mapping_code mapping_value;
 do
+  if [[ -z "$column_name" ]]; then
+    continue;
+  fi
   if [[ counter -eq 0 ]]; then
     counter=$counter+1;
     continue;
@@ -58,11 +64,14 @@ do
     echo ", $column"
   fi
   counter=$counter+1;
-done < <(cat ${SOURCE_FILE} | tr '\t' '~' | tr -d '\r')
+done < <(cat ${SOURCE_FILE} | tr '\t' '~' | tr -d '\r' | grep .)
 
 while IFS=$MAP_FILE_DELIMITER read -r mapping_value;
 do
+  if [[ -z "$mapping_value" ]]; then
+    continue;
+  fi
   echo "$mapping_value"
-done < <( cat ${JOIN_FILE} | tr -d '\t' | tr -d '\r')
+done < <( cat ${JOIN_FILE} | tr -d '\t' | tr -d '\r' | grep .)
 echo ";"
 echo "EXEC TRANSFORM_INTERCEPTOR('POST','${TABLE_NAME}'); "
