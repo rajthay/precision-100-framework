@@ -33,33 +33,43 @@ function banner() {
 }
 
 function ask_question() {
-  if [ -s $1 ]; then
-    echo ".."
-    sleep 1
-    echo "...."
-    sleep 1
-    echo "......"
-    sleep 1
-    echo "........"
-    sleep 1
-    echo "......"
-    sleep 1
-    echo "...."
-    sleep 1
-    echo ".."
-    sleep 1
-    echo "Log file $1 created"
-    echo "Would you like to view the log file ?"
-    select yn in "Yes" "No"; do
+  local log_size="$(wc -c < "$1")"
+  local err_size="$(wc -c < "$2")"
+
+  echo ".."
+  sleep 1
+  echo "...."
+  sleep 1
+  echo "......"
+  sleep 1
+  echo "........"
+  sleep 1
+  echo "......"
+  sleep 1
+  echo "...."
+  sleep 1
+  echo ".."
+  sleep 1
+
+  while true 
+  do 
+    banner
+    echo "Log file of size $log_size: $1 created"
+    echo "Err file of size $err_size: $2 created"
+    echo "Would you like to view the log file(s) ?"
+    select yn in "Log file" "Err file" "Back to Menu"; do
       case $yn in
-        "Yes") 
+        "Log file") 
           vi $1
-          break;;
-        "No") 
-          break;;
+	  break;;
+        "Err file") 
+	  vi $2
+	  break;;
+        "Back to Menu") 
+	  return;
       esac
     done
-  fi
+  done
 }
 
 function main_loop() {
@@ -75,7 +85,7 @@ function main_loop() {
 	err_file_name="$PRECISION100_LOG_FOLDER/${i}-$(date +%F-%H-%M-%S).err"
         $PRECISION100_FOLDER/bin/exec_dataflow.sh ${i%.*} 1> >(tee -a "$log_file_name") 2> >(tee -a "$err_file_name" >&2)
 
-	ask_question ${log_file_name}
+	ask_question "${log_file_name}" "${err_file_name}"
 	break;;
     esac;
   done;
