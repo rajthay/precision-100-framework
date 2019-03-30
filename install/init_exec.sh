@@ -27,4 +27,6 @@ $PRECISION100_FOLDER/bin/repo-template.sh 'CHECKOUT' 1> >(tee -a "$log_file_name
 
 cd "$REPO_WORK_FOLDER"
 
-$PRECISION100_FOLDER/bin/repo-template.sh 'BRANCH' 1> >(tee -a "$log_file_name") 2> >(tee -a "$err_file_name" >&2)
+if [[ "PROD" = "$OPERATION_MODE" ]]; then
+  $PRECISION100_FOLDER/bin/repo-template.sh 'BRANCH' 1> >(tee -a "$log_file_name") 2> >(tee -a "$err_file_name" >&2)
+fi

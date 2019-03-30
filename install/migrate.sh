@@ -7,10 +7,10 @@ fi
 
 source ./conf/.env.sh
 if [ ! -z "$1" ]; then
-    export SIMULATION_MODE="TRUE"
+    export OPERATION_MODE="PROD"
 fi
 if [ ! -z "$2" ]; then
-    export SIMULATION_SLEEP=$2
+    export SIMULATION_MODE="TRUE"
 fi
 
 export OPERATION="migrate.sh"
@@ -27,7 +27,10 @@ function banner() {
   echo "                                                                "
   echo "  Iteration: $EXECUTION_NAME                                    "
   echo "                                                                "
+  echo "  Operation Mode: $OPERATION_MODE                               "
+  echo "                                                                "
   echo "  Simulation Mode: $SIMULATION_MODE                             "
+  echo "                                                                "
   echo "                                                                "
   echo "****************************************************************"
 }
@@ -36,20 +39,22 @@ function ask_question() {
   local log_size="$(wc -c < "$1")"
   local err_size="$(wc -c < "$2")"
 
-  echo ".."
-  sleep 1
-  echo "...."
-  sleep 1
-  echo "......"
-  sleep 1
-  echo "........"
-  sleep 1
-  echo "......"
-  sleep 1
-  echo "...."
-  sleep 1
-  echo ".."
-  sleep 1
+  if [[ "PROD" = "$OPERATION_MODE" ]]; then 
+    echo ".."
+    sleep 1
+    echo "...."
+    sleep 1
+    echo "......"
+    sleep 1
+    echo "........"
+    sleep 1
+    echo "......"
+    sleep 1
+    echo "...."
+    sleep 1
+    echo ".."
+    sleep 1
+  fi
 
   while true 
   do 
