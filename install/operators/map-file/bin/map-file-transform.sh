@@ -62,7 +62,7 @@ done < <(cat ${SOURCE_FILE} | tr '\t' '~' | tr -d '\r')
 
 while IFS=$MAP_FILE_DELIMITER read -r mapping_value;
 do
-  echo $mapping_value
-done < <( cat ${JOIN_FILE} | tr -d '\r')
+  echo "$mapping_value"
+done < <( cat ${JOIN_FILE} | tr -d '\t' | tr -d '\r')
 echo ";"
 echo "EXEC TRANSFORM_INTERCEPTOR('POST','${TABLE_NAME}'); "
