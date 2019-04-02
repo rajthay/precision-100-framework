@@ -1,5 +1,7 @@
 #!/bin/bash
 
+export NLS_LANG=.UTF8
+
 if [[ ( "$#" -gt 2 ) ]]; then
   echo "Usage: $0 [simulation-mode-true-false] [simulation-sleep-time-in-seconds]"
   exit 1;
